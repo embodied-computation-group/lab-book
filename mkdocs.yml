@@ -90,6 +90,7 @@ nav:
       - Notebooks and figures: pages/09-notebooks-and-figures.md
       - Human-subject data: pages/13-data-and-ethics.md
   - Optional extensions:
+      - GitHub with an agent: pages/github-with-agents.md
       - Skills: pages/10-skills.md
       - Cluster work: pages/11-hpc.md
       - The genomedk skill: pages/12-genomedk-skill.md

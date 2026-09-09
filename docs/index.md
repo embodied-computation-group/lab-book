@@ -41,7 +41,7 @@ implementation.
 | First session | [Start here](pages/01-start-here.md), [setup](pages/03-setup.md), [lab tutorial](pages/lab-data-tutorial.md) or [quick warm-up](pages/first-exercise.md) | Import a table, check it, make a plot, answer a small question and save commits. |
 | Everyday work | [Context](pages/02-context.md), [layout and Git](pages/04-project-layout.md), [project instructions](pages/05-claude-md.md), [the loop](pages/06-the-loop.md), [practical tips](pages/14-tips-and-tricks.md) | Give a useful brief, work in small steps and recover from an unhelpful session. |
 | Results you will rely on | [Verification](pages/07-verification.md), [reproducibility](pages/08-reproducibility.md), [figures](pages/09-notebooks-and-figures.md) | Explain your checks and reproduce a result from saved files. |
-| Optional extensions | [Skills](pages/10-skills.md), [cluster work](pages/11-hpc.md), [genomedk example](pages/12-genomedk-skill.md) | Reuse procedures or scale an analysis when your project needs it. |
+| Optional extensions | [GitHub with an agent](pages/github-with-agents.md), [skills](pages/10-skills.md), [cluster work](pages/11-hpc.md), [genomedk example](pages/12-genomedk-skill.md) | Collaborate through PRs, reuse procedures or scale an analysis when your project needs it. |
 
 Before working with participant files, read [Human-subject data](pages/13-data-and-ethics.md).
 The internal tutorial uses the lab's approved access arrangements; the warm-up uses

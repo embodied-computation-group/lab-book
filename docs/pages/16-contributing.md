@@ -43,6 +43,9 @@ should work across macOS, Windows and Linux, or clearly state which system they 
 
 Use relative links so pages work on GitHub and the rendered site.
 
+New to pull requests? [GitHub with an agent](github-with-agents.md) shows how to prepare
+a focused change, ask for help and work through review comments.
+
 ## Sources
 
 The main scientific computing references are

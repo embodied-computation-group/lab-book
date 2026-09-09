@@ -112,6 +112,10 @@ In [Poldrack's version-control discussion](https://bettercode-book.org/book-ai-c
 saving progress before clearing context is part of the workflow. The aim is to make
 experimentation recoverable.
 
+When you want to share a change or ask for help, continue with
+[GitHub with an agent](github-with-agents.md). It walks through branches, pull requests,
+review and merging, with prompts for each step.
+
 ---
 
 [← Setup](03-setup.md) · [Contents](../index.md) · [Next: Writing a CLAUDE.md →](05-claude-md.md)
