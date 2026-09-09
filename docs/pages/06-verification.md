@@ -1,13 +1,13 @@
 # 6. Verification
 
-[← The loop](05-the-loop.md) · [Contents](../README.md) · [Next: Reproducibility →](07-reproducibility.md)
+[← The loop](05-the-loop.md) · [Contents](../index.md) · [Next: Reproducibility →](07-reproducibility.md)
 
 ---
 
 This is the page that matters. Reading agent-written code is not verification. The code
 will look fine, because looking fine is what these models are best at.
 
-Checklist version: [`templates/verification-checklist.md`](../templates/verification-checklist.md).
+Checklist version: [`starters/verification-checklist.md`](../starters/verification-checklist.md).
 
 ## 1. Test against a known answer
 
@@ -110,4 +110,4 @@ number".
 
 ---
 
-[← The loop](05-the-loop.md) · [Contents](../README.md) · [Next: Reproducibility →](07-reproducibility.md)
+[← The loop](05-the-loop.md) · [Contents](../index.md) · [Next: Reproducibility →](07-reproducibility.md)

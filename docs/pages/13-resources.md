@@ -1,6 +1,6 @@
 # 13. Resources
 
-[← Tips and tricks](12-tips-and-tricks.md) · [Contents](../README.md) · [Next: Contributing →](14-contributing.md)
+[← Tips and tricks](12-tips-and-tricks.md) · [Contents](../index.md) · [Next: Contributing →](14-contributing.md)
 
 ---
 
@@ -100,4 +100,4 @@ stealing into your own Snakefile regardless.
 
 ---
 
-[← Tips and tricks](12-tips-and-tricks.md) · [Contents](../README.md) · [Next: Contributing →](14-contributing.md)
+[← Tips and tricks](12-tips-and-tricks.md) · [Contents](../index.md) · [Next: Contributing →](14-contributing.md)

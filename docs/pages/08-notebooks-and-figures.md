@@ -1,6 +1,6 @@
 # 8. Notebooks and figures
 
-[← Reproducibility](07-reproducibility.md) · [Contents](../README.md) · [Next: Cluster work →](09-hpc.md)
+[← Reproducibility](07-reproducibility.md) · [Contents](../index.md) · [Next: Cluster work →](09-hpc.md)
 
 ---
 
@@ -72,4 +72,4 @@ if an agent starts reinventing one, stop it and point it at the package.
 
 ---
 
-[← Reproducibility](07-reproducibility.md) · [Contents](../README.md) · [Next: Cluster work →](09-hpc.md)
+[← Reproducibility](07-reproducibility.md) · [Contents](../index.md) · [Next: Cluster work →](09-hpc.md)

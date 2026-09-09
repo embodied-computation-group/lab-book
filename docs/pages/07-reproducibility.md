@@ -1,6 +1,6 @@
 # 7. Reproducibility
 
-[← Verification](06-verification.md) · [Contents](../README.md) · [Next: Notebooks and figures →](08-notebooks-and-figures.md)
+[← Verification](06-verification.md) · [Contents](../index.md) · [Next: Notebooks and figures →](08-notebooks-and-figures.md)
 
 ---
 
@@ -11,7 +11,7 @@ regenerate files freely and cheerfully.
 ## Put an orchestrator between the agent and your outputs
 
 This is the highest-leverage thing on the page. Use **Snakemake** (preferred in this lab)
-or `make`. Skeleton at [`templates/Snakefile`](../templates/Snakefile).
+or `make`. Skeleton at [`starters/Snakefile`](../starters/Snakefile).
 
 Why it matters more with an agent than without: an agent will re-run a script, overwrite a
 figure, and move on. Without a dependency graph you cannot tell which outputs are current,
@@ -111,4 +111,4 @@ Being your own Referee 2 is cheaper than the real one.
 
 ---
 
-[← Verification](06-verification.md) · [Contents](../README.md) · [Next: Notebooks and figures →](08-notebooks-and-figures.md)
+[← Verification](06-verification.md) · [Contents](../index.md) · [Next: Notebooks and figures →](08-notebooks-and-figures.md)

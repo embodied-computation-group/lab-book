@@ -1,13 +1,13 @@
 # 4. Writing a CLAUDE.md
 
-[← Project layout](03-project-layout.md) · [Contents](../README.md) · [Next: The loop →](05-the-loop.md)
+[← Project layout](03-project-layout.md) · [Contents](../index.md) · [Next: The loop →](05-the-loop.md)
 
 ---
 
 `CLAUDE.md` sits in your project root and is read at the start of every session. It is the
 difference between explaining your conventions forty times and explaining them once.
 
-There is a ready-made one at [`templates/CLAUDE.md`](../templates/CLAUDE.md). Copy it and
+There is a ready-made one at [`starters/CLAUDE.md`](../starters/CLAUDE.md). Copy it and
 edit. What follows is why each part is there.
 
 ## What belongs in it
@@ -65,4 +65,4 @@ need; the other half is worth copying into the next project.
 
 ---
 
-[← Project layout](03-project-layout.md) · [Contents](../README.md) · [Next: The loop →](05-the-loop.md)
+[← Project layout](03-project-layout.md) · [Contents](../index.md) · [Next: The loop →](05-the-loop.md)

@@ -1,6 +1,6 @@
 # 3. Project layout
 
-[← Setup](02-setup.md) · [Contents](../README.md) · [Next: Writing a CLAUDE.md →](04-claude-md.md)
+[← Setup](02-setup.md) · [Contents](../index.md) · [Next: Writing a CLAUDE.md →](04-claude-md.md)
 
 ---
 
@@ -77,10 +77,10 @@ that changed halfway through. Git is how you see it.
 - **Delete aggressively.** If you cannot say what a file is for, it goes. Tests make this
   safe, which is one more reason to have them.
 
-Data does not go in git. See [`templates/gitignore`](../templates/gitignore). For sharing
+Data does not go in git. See [`starters/gitignore`](../starters/gitignore). For sharing
 data use the lab's usual channels; for versioning large derived files, ask before adding
 `git-lfs` or DataLad to a project.
 
 ---
 
-[← Setup](02-setup.md) · [Contents](../README.md) · [Next: Writing a CLAUDE.md →](04-claude-md.md)
+[← Setup](02-setup.md) · [Contents](../index.md) · [Next: Writing a CLAUDE.md →](04-claude-md.md)

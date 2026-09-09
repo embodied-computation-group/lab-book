@@ -1,6 +1,6 @@
 # 5. The loop
 
-[← Writing a CLAUDE.md](04-claude-md.md) · [Contents](../README.md) · [Next: Verification →](06-verification.md)
+[← Writing a CLAUDE.md](04-claude-md.md) · [Contents](../index.md) · [Next: Verification →](06-verification.md)
 
 ---
 
@@ -92,4 +92,4 @@ the rest back. Ten minutes of your own typing beats an hour of steering.
 
 ---
 
-[← Writing a CLAUDE.md](04-claude-md.md) · [Contents](../README.md) · [Next: Verification →](06-verification.md)
+[← Writing a CLAUDE.md](04-claude-md.md) · [Contents](../index.md) · [Next: Verification →](06-verification.md)

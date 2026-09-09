@@ -47,10 +47,10 @@ project/
 mkdir -p data/{raw,processed,generated} src scripts notebooks \
          results/{figures,tables} logs tests .claude/agents
 touch data/raw/.gitkeep data/processed/.gitkeep data/generated/.gitkeep
-cp <labbook>/templates/gitignore .gitignore
-cp <labbook>/templates/CLAUDE.md CLAUDE.md      # then EDIT the data facts section
-cp <labbook>/templates/Snakefile Snakefile
-cp <labbook>/templates/verification-checklist.md VERIFICATION.md
+cp <labbook>/starters/gitignore .gitignore
+cp <labbook>/starters/CLAUDE.md CLAUDE.md      # then EDIT the data facts section
+cp <labbook>/starters/Snakefile Snakefile
+cp <labbook>/starters/verification-checklist.md VERIFICATION.md
 uv init && uv venv
 
 # make raw data actually read-only, not aspirationally

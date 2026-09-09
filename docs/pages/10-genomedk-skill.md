@@ -1,6 +1,6 @@
 # 10. Driving the cluster with the `genomedk` skill
 
-[← Cluster work](09-hpc.md) · [Contents](../README.md) · [Next: Human-subject data →](11-data-and-ethics.md)
+[← Cluster work](09-hpc.md) · [Contents](../index.md) · [Next: Human-subject data →](11-data-and-ethics.md)
 
 ---
 
@@ -129,4 +129,4 @@ Run `/help` to see what is currently installed.
 
 ---
 
-[← Cluster work](09-hpc.md) · [Contents](../README.md) · [Next: Human-subject data →](11-data-and-ethics.md)
+[← Cluster work](09-hpc.md) · [Contents](../index.md) · [Next: Human-subject data →](11-data-and-ethics.md)

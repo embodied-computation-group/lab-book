@@ -1,6 +1,6 @@
 # 14. Contributing
 
-[← Resources](13-resources.md) · [Contents](../README.md)
+[← Resources](13-resources.md) · [Contents](../index.md)
 
 ---
 
@@ -32,13 +32,13 @@ because it looks like a recommendation.
    again at the bottom.
 3. Number it. If you insert in the middle, renumber the following pages and fix their nav
    links — `sed -i` handles it, and it is worth doing rather than leaving a `7b`.
-4. Add the row to the table in `README.md`.
+4. Add the row to the table in `docs/index.md`, and to the `nav:` block in `mkdocs.yml`.
 5. Push and open a PR. Tag Micah.
 
 Nav line format, top and bottom of every page:
 
 ```markdown
-[← Previous page](0N-previous.md) · [Contents](../README.md) · [Next: Title →](0N-next.md)
+[← Previous page](0N-previous.md) · [Contents](../index.md) · [Next: Title →](0N-next.md)
 ```
 
 ## Style
@@ -71,4 +71,4 @@ be generally useful, we can extract and publish it — say so in the PR and we w
 
 ---
 
-[← Resources](13-resources.md) · [Contents](../README.md)
+[← Resources](13-resources.md) · [Contents](../index.md)

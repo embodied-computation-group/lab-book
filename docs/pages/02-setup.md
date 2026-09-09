@@ -1,6 +1,6 @@
 # 2. Setup
 
-[← Start here](01-start-here.md) · [Contents](../README.md) · [Next: Project layout →](03-project-layout.md)
+[← Start here](01-start-here.md) · [Contents](../index.md) · [Next: Project layout →](03-project-layout.md)
 
 ---
 
@@ -82,4 +82,4 @@ pick, say so in `CLAUDE.md` — otherwise the agent will guess, and it guesses `
 
 ---
 
-[← Start here](01-start-here.md) · [Contents](../README.md) · [Next: Project layout →](03-project-layout.md)
+[← Start here](01-start-here.md) · [Contents](../index.md) · [Next: Project layout →](03-project-layout.md)

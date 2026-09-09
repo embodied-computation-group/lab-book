@@ -1,6 +1,6 @@
 # 12. Tips and tricks
 
-[← Human-subject data](11-data-and-ethics.md) · [Contents](../README.md) · [Next: Resources →](13-resources.md)
+[← Human-subject data](11-data-and-ethics.md) · [Contents](../index.md) · [Next: Resources →](13-resources.md)
 
 ---
 
@@ -93,4 +93,4 @@ Do not point an MCP server at anything containing participant data (page 11).
 
 ---
 
-[← Human-subject data](11-data-and-ethics.md) · [Contents](../README.md) · [Next: Resources →](13-resources.md)
+[← Human-subject data](11-data-and-ethics.md) · [Contents](../index.md) · [Next: Resources →](13-resources.md)

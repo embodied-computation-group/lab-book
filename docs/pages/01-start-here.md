@@ -1,6 +1,6 @@
 # 1. Start here
 
-[← Contents](../README.md) · [Next: Setup →](02-setup.md)
+[← Contents](../index.md) · [Next: Setup →](02-setup.md)
 
 ---
 
@@ -73,4 +73,4 @@ including this one.
 
 ---
 
-[← Contents](../README.md) · [Next: Setup →](02-setup.md)
+[← Contents](../index.md) · [Next: Setup →](02-setup.md)
