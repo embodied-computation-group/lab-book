@@ -85,14 +85,15 @@ nav:
       - 7. Verification: pages/07-verification.md
       - 8. Reproducibility: pages/08-reproducibility.md
       - 9. Notebooks and figures: pages/09-notebooks-and-figures.md
+      - 10. Skills: pages/10-skills.md
   - Lab specifics:
-      - 10. Cluster work: pages/10-hpc.md
-      - 11. The genomedk skill: pages/11-genomedk-skill.md
-      - 12. Human-subject data: pages/12-data-and-ethics.md
-      - 13. Tips and tricks: pages/13-tips-and-tricks.md
+      - 11. Cluster work: pages/11-hpc.md
+      - 12. The genomedk skill: pages/12-genomedk-skill.md
+      - 13. Human-subject data: pages/13-data-and-ethics.md
+      - 14. Tips and tricks: pages/14-tips-and-tricks.md
   - Reference:
-      - 14. Resources: pages/14-resources.md
-      - 15. Contributing: pages/15-contributing.md
+      - 15. Resources: pages/15-resources.md
+      - 16. Contributing: pages/16-contributing.md
   - Templates:
       - Project tree: starters/project-tree.md
       - CLAUDE.md: starters/CLAUDE.md

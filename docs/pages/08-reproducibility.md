@@ -103,7 +103,7 @@ means:
 - [ ] data either included, or a script that fetches it, or a clear access statement
 - [ ] seeds set and recorded
 - [ ] tests that pass on a clean checkout
-- [ ] a note on what was AI-assisted (increasingly expected; see page 13)
+- [ ] a note on what was AI-assisted (increasingly expected; see page 14)
 
 Before submitting, run the reproducibility audit skill from
 [Crawfurd's skill set](https://lcrawfurd.github.io/claude-skills/) against your own repo.

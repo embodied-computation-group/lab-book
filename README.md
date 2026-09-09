@@ -5,7 +5,7 @@ PhD students and postdocs using agentic coding tools on real analyses — built 
 loop, **Context → Plan → Execute → Review**, and the rule that code is now generated faster
 than it can be verified.
 
-Fifteen short pages plus copyable starter files. Written for our lab; public because
+Sixteen short pages plus copyable starter files. Written for our lab; public because
 most of it is generally useful and none of it is secret.
 
 ## Read it
@@ -43,20 +43,20 @@ Example data in `docs/starters/` is fictional and labelled as such. Cluster path
 account names are fine — they are not secrets, and they are the specifics that make the
 cluster pages worth reading.
 
-Full guidance in [Contributing](docs/pages/15-contributing.md).
+Full guidance in [Contributing](docs/pages/16-contributing.md).
 
 ## Layout
 
 ```
 docs/
 ├── index.md        # the book's cover and contents table
-├── pages/          # 01–15, one idea per page
+├── pages/          # 01–16, one idea per page
 └── starters/       # copyable: CLAUDE.md, Snakefile, gitignore, checklists
 mkdocs.yml          # site config; nav lives here
 ```
 
 Links are all relative, so they work both in the rendered site and when browsing raw `.md`
-on GitHub. Keep it that way — see [Contributing](docs/pages/15-contributing.md).
+on GitHub. Keep it that way — see [Contributing](docs/pages/16-contributing.md).
 
 ## The short version
 

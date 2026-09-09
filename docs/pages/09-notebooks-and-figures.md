@@ -1,6 +1,6 @@
 # 9. Notebooks and figures
 
-[← Reproducibility](08-reproducibility.md) · [Contents](../index.md) · [Next: Cluster work →](10-hpc.md)
+[← Reproducibility](08-reproducibility.md) · [Contents](../index.md) · [Next: Skills →](10-skills.md)
 
 ---
 
@@ -72,4 +72,4 @@ if an agent starts reinventing one, stop it and point it at the package.
 
 ---
 
-[← Reproducibility](08-reproducibility.md) · [Contents](../index.md) · [Next: Cluster work →](10-hpc.md)
+[← Reproducibility](08-reproducibility.md) · [Contents](../index.md) · [Next: Skills →](10-skills.md)

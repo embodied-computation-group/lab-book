@@ -31,6 +31,9 @@ Threshold and slope with CIs. Write the recovery test first.
 
 That is enough. [Page 2](02-context.md) covers what to leave out.
 
+If you cannot yet say what you want in two lines, run `/interview` first. It asks what
+problem you are solving and why before anything gets built — [page 10](10-skills.md).
+
 ## Plan: never hand it a nontrivial task cold
 
 Shift+Tab until you are in **Plan Mode**. The agent reads and proposes but cannot edit.

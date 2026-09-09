@@ -1,6 +1,6 @@
-# 10. Cluster work
+# 11. Cluster work
 
-[← Notebooks and figures](09-notebooks-and-figures.md) · [Contents](../index.md) · [Next: Driving the cluster with the genomedk skill →](11-genomedk-skill.md)
+[← Skills](10-skills.md) · [Contents](../index.md) · [Next: Driving the cluster with the genomedk skill →](12-genomedk-skill.md)
 
 ---
 
@@ -146,4 +146,4 @@ Lab specifics, so nobody rediscovers them:
 
 ---
 
-[← Notebooks and figures](09-notebooks-and-figures.md) · [Contents](../index.md) · [Next: Driving the cluster with the genomedk skill →](11-genomedk-skill.md)
+[← Skills](10-skills.md) · [Contents](../index.md) · [Next: Driving the cluster with the genomedk skill →](12-genomedk-skill.md)

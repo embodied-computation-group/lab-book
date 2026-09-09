@@ -14,7 +14,7 @@ project/
 ├── Snakefile                  # the pipeline — every figure and table is a rule
 ├── .gitignore
 ├── .claude/
-│   ├── settings.json          # permission denies for sensitive paths (page 12)
+│   ├── settings.json          # permission denies for sensitive paths (page 13)
 │   └── agents/                # project-specific subagents, e.g. a read-only reviewer
 ├── data/
 │   ├── raw/                   # READ-ONLY. chmod a-w. Never written by anything.

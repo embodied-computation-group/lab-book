@@ -40,7 +40,7 @@ binned with the lab's standard function, not `pd.qcut`."
 ## What does not belong
 
 - Anything secret. This file is committed and readable by anyone with repo access.
-- Participant identifiers or clinical detail. See page 11.
+- Participant identifiers or clinical detail. See page 12.
 - Long prose. It is read every session and it consumes context. Bullet points, imperatives.
 - Things that are true of all your projects — those go in your personal
   `~/.claude/CLAUDE.md` instead, which applies everywhere.

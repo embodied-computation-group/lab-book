@@ -1,6 +1,6 @@
-# 14. Resources
+# 15. Resources
 
-[← Tips and tricks](13-tips-and-tricks.md) · [Contents](../index.md) · [Next: Contributing →](15-contributing.md)
+[← Tips and tricks](14-tips-and-tricks.md) · [Contents](../index.md) · [Next: Contributing →](16-contributing.md)
 
 ---
 
@@ -113,10 +113,14 @@ stealing into your own Snakefile regardless.
 
 - **[RainCloudPlots](https://github.com/RainCloudPlots/RainCloudPlots)** — ours. If an agent
   starts reinventing a raincloud, stop it and point it here.
-- **`genomedk` skill** — page 11.
-- **`interoception-hierarchical-models` skill** — HRD and RRST psychophysics and meta-d′.
-  Use it instead of asking an agent to write a meta-d′ model from scratch.
+- **[`ai-skills`](https://github.com/embodied-computation-group/ai-skills)** — the lab's
+  skills repo (private; ask for access). `genomedk` and `interoception-hierarchical-models`,
+  with generated ports for ChatGPT, GitHub Copilot and Microsoft 365 Copilot, plus pointers
+  to the external collections we install as plugins. Page 10 explains skills; page 12 is
+  the `genomedk` worked example.
+- **`/interview`** — a discovery conversation before anything gets built. A personal skill
+  of Micah's for now, being added to `ai-skills`. Page 10.
 
 ---
 
-[← Tips and tricks](13-tips-and-tricks.md) · [Contents](../index.md) · [Next: Contributing →](15-contributing.md)
+[← Tips and tricks](14-tips-and-tricks.md) · [Contents](../index.md) · [Next: Contributing →](16-contributing.md)

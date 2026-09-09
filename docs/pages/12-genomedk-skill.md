@@ -1,24 +1,12 @@
-# 11. Driving the cluster with the `genomedk` skill
+# 12. Driving the cluster with the `genomedk` skill
 
-[← Cluster work](10-hpc.md) · [Contents](../index.md) · [Next: Human-subject data →](12-data-and-ethics.md)
+[← Cluster work](11-hpc.md) · [Contents](../index.md) · [Next: Human-subject data →](13-data-and-ethics.md)
 
 ---
 
-Page 10 is the rules. This page is the tooling: the lab keeps its GenomeDK knowledge in a
-**skill**, so you do not have to remember any of it and neither does the agent.
-
-## What a skill is
-
-A skill is a folder of instructions that Claude Code loads on demand. It sits in
-`~/.claude/skills/<name>/` with a `SKILL.md` inside, and it has two ways of firing:
-
-- **you invoke it** — type `/genomedk` in Claude Code
-- **it triggers itself** — the description in its frontmatter tells the agent when the
-  skill is relevant, so mentioning SLURM or `ssh genome` pulls it in automatically
-
-The point is that it is loaded *only when needed*. It can be long and detailed without
-costing you context on unrelated work, which is why it is the right home for a hundred
-cluster gotchas.
+Page 11 is the rules. This page is the worked example: the lab keeps its GenomeDK knowledge
+in a **skill** — [page 10](10-skills.md) explains what those are — so you do not have to
+remember any of it, and neither does the agent.
 
 ## Using it
 
@@ -79,11 +67,11 @@ the whole discipline of cluster work, and it maps directly onto page 6.
 The skill removes the recall burden, not the judgement:
 
 - **`--time` sizing.** You know how long your model takes. Size for the worst case
-  (page 10), because the jobs a walltime kills are the slow-converging ones and losing them
+  (page 11), because the jobs a walltime kills are the slow-converging ones and losing them
   biases your sample.
 - **Deciding a run is finished.** Ask for the count of output files containing real
   results. Never accept "the array completed".
-- **Anything touching participant data.** Page 12 applies on the cluster exactly as it does
+- **Anything touching participant data.** Page 13 applies on the cluster exactly as it does
   locally.
 
 ## Adding to the skill
@@ -91,13 +79,10 @@ The skill removes the recall burden, not the judgement:
 This is the part that compounds. When you lose an afternoon to a cluster quirk, put it in
 the skill and nobody in the lab loses that afternoon again.
 
-The file is at:
-
-```
-~/.claude/skills/genomedk/SKILL.md
-```
-
-Easiest route is to just ask, in a session where you have the fresh scar tissue:
+The source of truth is `skills/genomedk/SKILL.md` in
+[`ai-skills`](https://github.com/embodied-computation-group/ai-skills). Its `install.sh`
+symlinks that into `~/.claude/skills/`, so editing either edits both. Easiest route is to
+just ask, in a session where you have the fresh scar tissue:
 
 ```
 Add to the genomedk skill: jobs on gpu-h200 need --gres=gpu:1 or they
@@ -109,24 +94,15 @@ Write entries the way the existing ones are written: the symptom you actually sa
 happens, and the fix. "A job that succeeded but wrote nothing" is a useful entry.
 "Be careful with arrays" is not.
 
-The skill currently lives in Micah's `~/.claude/skills/`. If you want it, ask — the medium-
-term plan is to keep the lab's skills in a repo everyone clones into their skills
-directory, at which point improvements travel by pull request.
+Then regenerate the ports — `python3 scripts/build_ports.py`; the repo's `--check` fails
+for the next person if you skip it — commit both, and open a PR. Improvements travel by
+pull request, and everyone's next session has them.
 
-## Other lab skills worth knowing
+## Other skills
 
-- **`interoception-hierarchical-models`** — fits hierarchical Bayesian psychophysical and
-  metacognitive models (meta-d′, M-ratio, meta-Δ) to HRD (cardiac and auditory-control) and
-  RRST trial data. Covers dependency install, mapping raw trial columns onto model
-  variables, confidence-scale handling, cell QC, model specification, and sampler
-  diagnostics. Use it rather than asking an agent to write a meta-d′ model from scratch;
-  it will produce something that runs and is wrong.
-- **`nano-banana-pro`**, **`paper-banana`** — figure and diagram generation.
-- **`skill-creator`** — for writing your own. Worth reaching for the second time you
-  explain the same procedure to an agent.
-
-Run `/help` to see what is currently installed.
+[Page 10](10-skills.md) lists the lab's skills, the external collections we use, and
+`/interview`. `/help` shows what is currently installed.
 
 ---
 
-[← Cluster work](10-hpc.md) · [Contents](../index.md) · [Next: Human-subject data →](12-data-and-ethics.md)
+[← Cluster work](11-hpc.md) · [Contents](../index.md) · [Next: Human-subject data →](13-data-and-ethics.md)

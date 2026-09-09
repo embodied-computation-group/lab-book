@@ -1,6 +1,6 @@
-# 12. Human-subject data
+# 13. Human-subject data
 
-[← Driving the cluster with the genomedk skill](11-genomedk-skill.md) · [Contents](../index.md) · [Next: Tips and tricks →](13-tips-and-tricks.md)
+[← Driving the cluster with the genomedk skill](12-genomedk-skill.md) · [Contents](../index.md) · [Next: Tips and tricks →](14-tips-and-tricks.md)
 
 ---
 
@@ -100,4 +100,4 @@ was in it, and that clock starts when we find out.
 
 ---
 
-[← Driving the cluster with the genomedk skill](11-genomedk-skill.md) · [Contents](../index.md) · [Next: Tips and tricks →](13-tips-and-tricks.md)
+[← Driving the cluster with the genomedk skill](12-genomedk-skill.md) · [Contents](../index.md) · [Next: Tips and tricks →](14-tips-and-tricks.md)

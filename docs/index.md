@@ -6,7 +6,7 @@ written for PhD students and postdocs starting to use agentic coding tools on re
 
 Short pages, one idea each. Read in order the first time; use as a reference after that.
 
-Public on purpose. Add to it — see [Contributing](pages/15-contributing.md).
+Public on purpose. Add to it — see [Contributing](pages/16-contributing.md).
 
 ---
 
@@ -27,16 +27,16 @@ has the keystrokes.
 
 ## How to read this
 
-**New to agentic coding?** Pages 1 and 2, then 3–9 in order. About an hour, and it covers
+**New to agentic coding?** Pages 1 and 2, then 3–10 in order. About an hour, and it covers
 everything you need to not make a mess.
 
 **Already using Claude Code?** Read 2 — context is the step experienced users skip too.
 Then 4, 6, 7 and 8: project layout, the loop, verification, reproducibility. Those hold the
 actual lab policy.
 
-**Working on the cluster?** 10 and 11.
+**Working on the cluster?** 11 and 12.
 
-**Just want the reading list?** [Resources](pages/14-resources.md).
+**Just want the reading list?** [Resources](pages/15-resources.md).
 
 ---
 
@@ -65,22 +65,23 @@ actual lab policy.
 | 7 | [Verification](pages/07-verification.md) | How to know the analysis is right, not just finished |
 | 8 | [Reproducibility](pages/08-reproducibility.md) | Orchestrators, pinned environments, seeds, provenance |
 | 9 | [Notebooks and figures](pages/09-notebooks-and-figures.md) | Text-based notebooks, cheap plots, figure review |
+| 10 | [Skills](pages/10-skills.md) | Procedures the agent follows instead of reinventing; the lab skills repo; `/interview` |
 
 ### Lab specifics
 
 | # | Page | What it covers |
 |---|------|----------------|
-| 10 | [Cluster work](pages/10-hpc.md) | GenomeDK and SLURM with an agent in the loop |
-| 11 | [Driving the cluster with the `genomedk` skill](pages/11-genomedk-skill.md) | How skills work, and using ours instead of remembering any of it |
-| 12 | [Human-subject data](pages/12-data-and-ethics.md) | What must never enter a context window |
-| 13 | [Tips and tricks](pages/13-tips-and-tricks.md) | Prompting, patterns, MCP servers, time-wasters |
+| 11 | [Cluster work](pages/11-hpc.md) | GenomeDK and SLURM with an agent in the loop |
+| 12 | [Driving the cluster with the `genomedk` skill](pages/12-genomedk-skill.md) | The worked example: a skill doing the remembering for you |
+| 13 | [Human-subject data](pages/13-data-and-ethics.md) | What must never enter a context window |
+| 14 | [Tips and tricks](pages/14-tips-and-tricks.md) | Prompting, patterns, MCP servers, time-wasters |
 
 ### Reference
 
 | # | Page | What it covers |
 |---|------|----------------|
-| 14 | [Resources](pages/14-resources.md) | Annotated reading list, every link checked |
-| 15 | [Contributing](pages/15-contributing.md) | How to add a page, and what does not go in |
+| 15 | [Resources](pages/15-resources.md) | Annotated reading list, every link checked |
+| 16 | [Contributing](pages/16-contributing.md) | How to add a page, and what does not go in |
 
 ### Starters
 
@@ -108,8 +109,8 @@ If you read nothing else:
 6. **Generated data never touches `data/raw/` or `data/processed/`.**
 7. **Never compute on the GenomeDK frontend.** An agent asked to "test the script" will run
    the script.
-8. **No participant data in a context window.** Ever. See page 12.
+8. **No participant data in a context window.** Ever. See page 13.
 
 ---
 
-*Started 2026-09-09. Page 14 links were all opened and checked on that date.*
+*Started 2026-09-09. Page 15 links were all opened and checked on that date.*

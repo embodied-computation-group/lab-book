@@ -1,6 +1,6 @@
-# 15. Contributing
+# 16. Contributing
 
-[← Resources](14-resources.md) · [Contents](../index.md)
+[← Resources](15-resources.md) · [Contents](../index.md)
 
 ---
 
@@ -15,7 +15,7 @@ to understand — that is a paragraph somebody else will thank you for.
 **Corrections.** If something here is wrong or out of date, fix it. Do not add a caveat
 next to the wrong thing; replace the wrong thing.
 
-**Resources you actually read.** Page 14 only lists things somebody opened. If you add a
+**Resources you actually read.** Page 15 only lists things somebody opened. If you add a
 link, say what is in it and whether you read it — an unverified link is worse than no link,
 because it looks like a recommendation.
 
@@ -23,7 +23,7 @@ because it looks like a recommendation.
 
 - Anything secret: tokens, passwords, participant identifiers, unpublished results.
 - Long prose. One page, one idea, readable in five minutes.
-- Generic content already covered better elsewhere. Link to page 14 instead.
+- Generic content already covered better elsewhere. Link to page 15 instead.
 
 ## How to add a page
 
@@ -85,4 +85,4 @@ gitignored `NOTES.md`, not here.
 
 ---
 
-[← Resources](14-resources.md) · [Contents](../index.md)
+[← Resources](15-resources.md) · [Contents](../index.md)

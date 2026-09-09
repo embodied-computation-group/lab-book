@@ -1,6 +1,6 @@
-# 13. Tips and tricks
+# 14. Tips and tricks
 
-[← Human-subject data](12-data-and-ethics.md) · [Contents](../index.md) · [Next: Resources →](14-resources.md)
+[← Human-subject data](13-data-and-ethics.md) · [Contents](../index.md) · [Next: Resources →](15-resources.md)
 
 ---
 
@@ -33,22 +33,20 @@ Has its own page: [page 2](02-context.md). The two-line version: `/clear` betwee
 |---|---|
 | **Writer / Reviewer** | Two terminals. One writes, the other reviews with a clean context. The reviewer catches things the writer structurally cannot. |
 | **Test first** | Ask for the test and the simulator before the implementation. Better brief, and the code cannot be tuned to a test that already passes. |
-| **Plan, one, all** | Plan it, run one case, verify the output has real content, then run everything. Essential on the cluster (page 11). |
+| **Plan, one, all** | Plan it, run one case, verify the output has real content, then run everything. Essential on the cluster (page 12). |
 | **Methods diff** | Point it at your methods section and your pipeline, ask for discrepancies. Before every submission. |
 | **Explain this legacy script** | Best-value use of an agent on an inherited project, and it costs nothing. |
 
-## Skills and slash commands
+## Skills
 
-If you have explained the same procedure twice, make it a skill. `~/.claude/skills/<name>/SKILL.md`,
-description in the frontmatter, and it loads on demand — see page 11 for how the lab uses
-this for GenomeDK. `/skill-creator` writes them for you.
+Have their own page: [page 10](10-skills.md). Three tips that belong here anyway:
 
-Worth installing from outside the lab:
-
-- [Crawfurd's academic research skills](https://lcrawfurd.github.io/claude-skills/) —
-  **Referee 2** is a reproducibility audit that runs five parallel checks over your
-  replication package. Run it on your own repo before submitting. Also a pre-submission
-  reviewer and a Tufte figure critic.
+- **`/interview` before Plan Mode** when you cannot state the task in two lines. It asks
+  why before what, and it is the cheapest way to avoid building the wrong thing well.
+- **The second time you explain a procedure, make it a skill.** `/skill-creator` writes
+  them; the lab's live in `ai-skills`.
+- **[Referee 2](https://lcrawfurd.github.io/claude-skills/)** on your own replication
+  package before you submit, not after a reviewer asks.
 
 ## MCP servers
 
@@ -61,7 +59,7 @@ MCP servers give the agent tools beyond your filesystem. Configured ones worth k
   literature pass over a stack of PDFs.
 - **Gmail / Calendar / Drive** — admin work, not analysis.
 
-Do not point an MCP server at anything containing participant data (page 12).
+Do not point an MCP server at anything containing participant data (page 13).
 
 ## Small things that save time
 
@@ -87,4 +85,4 @@ Do not point an MCP server at anything containing participant data (page 12).
 
 ---
 
-[← Human-subject data](12-data-and-ethics.md) · [Contents](../index.md) · [Next: Resources →](14-resources.md)
+[← Human-subject data](13-data-and-ethics.md) · [Contents](../index.md) · [Next: Resources →](15-resources.md)
