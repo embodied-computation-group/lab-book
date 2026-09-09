@@ -1,83 +1,92 @@
 # 1. Start here
 
-[Contents](../index.md) · [Next: Context is king →](02-context.md)
+[Contents](../index.md) · [Next: Working with context →](02-context.md)
 
 ---
 
-## The loop
+An AI coding agent can read files, edit code and run commands. In a research project,
+that makes it useful for explaining an inherited script, implementing an analysis you
+have specified, or checking whether code matches your methods section. It can also
+produce a plausible result from the wrong assumptions.
 
-Everything in this book is an elaboration of four steps. Learn these and the rest is
-detail.
+This book teaches you to work with an agent while taking responsibility for the
+scientific decisions. Examples use Claude Code and the lab's Python tools. The habits
+apply more widely, although commands and settings differ between tools. The focus is
+scientific coding and analysis, rather than every use of AI in research.
+
+Start with something you are curious about. Make a plot, try a small change and see what
+happens. Commit often so you can return to a working version. You do not need an elaborate
+project structure to begin.
+
+Our main references are Bridgeford and colleagues'
+[Ten Simple Rules for AI-Assisted Coding in Science](https://arxiv.org/abs/2510.22254)
+and Russ Poldrack's [chapter on coding with AI](https://bettercode-book.org/book-ai-coding-assistants.html).
+Read them alongside the practical work here. Lab conventions, such as directory names
+and cluster settings, are our implementation choices.
+
+## What you will learn
+
+As you work through the tutorials and return to the core pages, you will learn to:
+
+- turn a scientific question into a small task with explicit assumptions and outputs;
+- give an agent useful context without exposing restricted data;
+- identify scientific decisions in a proposed plan;
+- check a result against a known answer and detect a deliberately introduced error;
+- save small, descriptive commits, including commits made by the agent;
+- leave code, checks and instructions another researcher can run.
+
+You need basic Python, a terminal, and enough Git to inspect changes. If those are new to
+you, work with a lab mate and use the introductory material on [page 15](15-resources.md).
+
+## The workflow
 
 ```
-    CONTEXT  →  PLAN  →  EXECUTE  →  REVIEW
-       ↑                               │
-       └───────────────────────────────┘
+CONTEXT → PLAN → EXECUTE → REVIEW
+   ↑                        │
+   └────────────────────────┘
 ```
 
-**Context.** Before anything else, decide what the agent knows. A fresh session knows
-nothing about your project: not your data, not your conventions, not what you did
-yesterday. What you put in front of it — a `CLAUDE.md`, the three files that matter, two
-lines saying what you want — is the entire basis for what it does next. Too little and it
-guesses. Too much and it loses the thread. This is the step people skip, and it is where
-most bad sessions are already lost. [Page 2](02-context.md) is about it.
+**Context.** State the question, relevant files, data definitions and constraints.
+Before granting access to research files, read [the data guidance](13-data-and-ethics.md).
 
-**Plan.** Say what you want, then make the agent say it back as a plan before it writes any
-code. Plan Mode (Shift+Tab) does exactly this. Argue with the plan while it is still text:
-this is where you catch that it thinks your confidence scale is 1–4, or that it intends to
-touch preprocessing. Cheap here, expensive later.
+**Plan.** Write down your proposed calculation, then ask the agent to develop a plan.
+Check what it will estimate, which observations it will include, and how it will test
+the result. For a small, well-defined edit, a sentence may be enough.
 
-**Execute.** Let it work. Watch the first few edits. Interrupt (Esc) the moment it heads
-somewhere you did not intend — after thirty seconds, not ten minutes.
+**Execute.** Let the agent implement the agreed task in small steps and commit useful
+progress. Inspect the first changes and interrupt if it makes an unexpected assumption.
 
-**Review.** Read the diff, not the summary. Run the tests. Then `/clear` and have a fresh
-session, which has no memory of what was *meant*, check what was actually *done*. Feed what
-it finds into the next plan.
+**Review.** Inspect the changes, run the tests and compare the output with an independent
+calculation or expected result. A fresh agent session can help find mistakes, but its
+agreement does not establish that an analysis is correct.
 
-Round and round. A task is a few turns of this loop; a project is hundreds. The loop is
-small on purpose — you should be able to hold all of it in your head while you work.
-[Page 6](06-the-loop.md) is the keystrokes.
+[Page 6](06-the-loop.md) gives prompts for each step. If a session gets stuck, save what
+is useful and restart from the project files. Restarting is part of the process.
 
-## The one rule
+## Choose a task you can judge
 
-> **Code is generated faster than it can be verified.**
+Start with a function, figure or calculation whose behaviour you understand. Give the
+agent a completion check it can run, so it can test and revise its own implementation.
 
-Before agents, writing code was slow and understanding it came free — you had typed it. Now
-writing is nearly free and understanding is the entire job. Every practice in this book
-exists to make the *Review* step cheap enough that you actually do it.
+For unfamiliar methods, ask for explanations and original sources before implementation.
+Read those sources and discuss consequential choices with your supervisor. Extra context
+alone does not resolve statistical uncertainty. Trying additional model specifications
+needs a scientific rationale and a record of which analyses were planned or exploratory.
 
-## What these tools are for
+Learning to use agents also means continuing to learn programming and methods. Predict
+what a function will return, explain a test, and occasionally implement a small calculation
+yourself. These give you ways to judge the work you delegate.
 
-**Good at:** boilerplate and glue; trying five model specifications instead of one;
-refactoring under tests; unfamiliar tooling — SLURM flags, a plotting library you use twice
-a year; explaining an inherited script.
+## Choose a first session
 
-**Bad at:** knowing your data — subject 14's trigger offset, who withdrew, what
-"condition 3" is; statistical judgement; saying "I do not know"; staying consistent across
-a long session.
+The [lab tutorial](lab-data-tutorial.md) uses the internal `gender_intero` dataset to
+practise import, quality checks, plotting and a descriptive analysis. It includes prompts,
+commit checkpoints and a small known-answer test.
 
-Notice the pattern. Everything in the second list is something the agent cannot know unless
-you put it in front of it. That is why context comes first.
-
-## Who this is for, honestly
-
-The people most helped by these tools are experienced researchers, who can smell a wrong
-result. The people most at risk are early-stage students, who cannot yet — and who now
-produce output fast enough that nobody has time to check it.
-
-If you are a student: slow down and review. If you are supervising: ask to see the
-verification, not the code.
-
-## Your first 30 minutes
-
-Do not start on your real analysis.
-
-1. Pick a small, finished analysis of yours where you know the right answer.
-2. Ask Claude Code to reproduce one figure from the raw data.
-3. Compare. Note every place it differed — and what it would have needed to know.
-
-Step 3 is the point. The list you make is your first `CLAUDE.md`.
+For a shorter exercise without research-data access, try the
+[fictional CSV warm-up](first-exercise.md). At your next supervision meeting, bring a plot,
+your Git history and one decision you had to make.
 
 ---
 
-[Contents](../index.md) · [Next: Context is king →](02-context.md)
+[Contents](../index.md) · [Next: Working with context →](02-context.md)

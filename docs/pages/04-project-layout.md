@@ -1,85 +1,116 @@
-# 4. Project layout
+# 4. Project layout and Git
 
 [← Setup](03-setup.md) · [Contents](../index.md) · [Next: Writing a CLAUDE.md →](05-claude-md.md)
 
 ---
 
-Lab standard. Use it unless you have a reason not to, and if you do, write the reason in
-your `CLAUDE.md`.
+A project can start small. You need somewhere for inputs, a script, a short description
+of how to run it, and a history of changes.
 
-```
+## A first project
+
+```text
 project/
-├── CLAUDE.md              # rules for the agent (page 5)
-├── README.md              # what this is, how to run it
-├── pyproject.toml         # deps, pinned
-├── uv.lock                # committed
-├── Snakefile              # the pipeline (page 8)
+├── README.md              # question and run command
+├── CLAUDE.md              # instructions for the agent
+├── pyproject.toml         # Python dependencies
+├── uv.lock                # saved dependency versions
+├── .gitignore             # files Git should leave untracked
 ├── data/
-│   ├── raw/               # READ-ONLY. Never written to. Never by an agent.
-│   ├── processed/         # derived from raw by code in src/
-│   └── generated/         # anything an AI produced. Quarantine.
-├── src/                   # importable, tested functions
-├── scripts/               # thin entry points that call src/
-├── notebooks/             # .qmd or .py, not .ipynb (page 9)
+│   └── generated/         # fictional practice observations
+├── scripts/
+│   └── analyse.py
 ├── results/
-│   ├── figures/
-│   └── tables/
 └── tests/
 ```
 
-## The three rules
+Ask the agent to create only the folders you need. As calculations grow, move reusable
+functions into `src/` and import them from scripts. The
+[starter layout](../starters/project-tree.md) includes an optional larger structure.
 
-**1. `data/raw/` is read-only.**
+## Keep observations and test data distinct
 
-Make it actually read-only, not aspirationally:
+For research projects, preserve original observations in read-only storage. Derived
+data belongs in `data/processed/`; fictional test observations and simulations belong
+in `data/generated/`. Label simulations so they cannot be mistaken for collected data.
+
+An output calculated from real data is a derived result even if an agent helped write
+the code. A planned imputation method also needs documentation; invented replacement
+values must not be used to bypass a missing input.
+
+Filesystem permissions protect raw files from accidental writes. They do not prevent
+reading or replace backups. [Page 13](13-data-and-ethics.md) explains agent access.
+A `.gitignore` file controls what Git tracks, not what the agent can read.
+
+## Git commits during the work
+
+A **commit** saves a named version of selected files. Frequent commits let you see what
+changed, compare a working version with a broken one, and recover earlier work.
+A focused history also helps an agent diagnose regressions and review a **pull request**
+(PR), the proposed set of changes you ask someone else to review.
+
+Agents can make commits. Tell them to keep each commit about one change and describe
+what it does. For an analysis task, useful checkpoints might be:
+
+```text
+Document reaction-time units and participant weighting
+Add tests for participant means and duplicate rows
+Implement CSV loading and participant means
+Add a plot of participant and group means
+```
+
+Save the starting version before a substantial change. Commit tests once you have checked
+that they express the intended behaviour; a test-first commit can have expected failures.
+Commit the implementation when the relevant checks pass, then save later improvements
+separately. Record the checks in commit messages when useful.
+
+You can ask:
+
+```text
+Work in small steps and make a descriptive Git commit after each coherent
+change. Check the diff and stage only files for that change.
+Run the relevant checks and record their outcome.
+Do not include research data, credentials or unrelated edits.
+```
+
+This history makes it easier to investigate a regression than one large "update analysis"
+commit. Commits are local: publishing them with a push is a separate action.
+
+## A few Git commands to learn
+
+Run these inside an existing repository:
 
 ```bash
-chmod -R a-w data/raw          # macOS / Linux / cluster
-icacls data\raw /deny "%USERNAME%":(W) /T   # Windows
+git status
+git diff
+git log --oneline -10
 ```
 
-An agent that can write to your raw data can destroy an irreplaceable scanning session
-while trying to be helpful. This has happened to people. Take the thirty seconds.
+They show changed files, edits to tracked files, and recent commits. Newly created files
+need to be opened separately until they are staged.
 
-**2. `data/generated/` exists and is separate.**
+Before a substantial task, make a branch:
 
-This is the one directory that is new since agents. Anything an AI produced — synthetic
-data for testing, an imputed column, a simulated dataset, a mock file it made to get a
-script running — goes here and nowhere else.
-
-The failure mode this prevents is real and it is bad: the agent needs test data, invents
-some, writes it into `data/processed/`, and six weeks later it is in your figure. Keeping
-it physically separate means the question "is any of this made up" has a one-line answer.
-
-Add to `CLAUDE.md`, verbatim:
-
-```
-Synthetic, simulated, or AI-generated data goes ONLY in data/generated/.
-Never write to data/raw/. Never write generated values into data/processed/.
+```bash
+git switch -c participant-means
 ```
 
-**3. `src/` holds functions, `scripts/` holds entry points.**
+A **branch** lets you develop a change separately from the main version. If your practice
+folder is not a repository yet, ask the agent to initialise Git, add a suitable
+`.gitignore` and make the first commit. Review which files it includes.
 
-Anything you would want to test lives in `src/` and gets imported. Scripts should be short
-enough to read in one screen. Agents write enormous monolithic scripts by default; ask for
-this split explicitly and it will comply.
+## When you need to restart
 
-## Git hygiene with an agent
+First save useful changes and a short note of what worked, what failed and what to try
+next. Then clear the conversation and point the new session to those files.
 
-Agents generate dead code fast — abandoned helpers, superseded scripts, files from a plan
-that changed halfway through. Git is how you see it.
+If a code change caused a problem, ask the agent to compare it with the last working
+commit. It can propose a new commit that reverses the relevant change. You do not need
+to erase the whole branch or discard unrelated work.
 
-- **Branch per task.** `git switch -c hrd-slope-fix`. Never let an agent work on `main`.
-- **Commit before you let it loose,** so `git diff` shows exactly what it did.
-- **Commit at every working state,** not at the end of the session. Small commits let you
-  bisect when the pipeline breaks two hours later.
-- **Read the diff.** Not the summary the agent gives you. The diff.
-- **Delete aggressively.** If you cannot say what a file is for, it goes. Tests make this
-  safe, which is one more reason to have them.
-
-Data does not go in git. See [`starters/gitignore`](../starters/gitignore). For sharing
-data use the lab's usual channels; for versioning large derived files, ask before adding
-`git-lfs` or DataLad to a project.
+In [Poldrack's version-control discussion](https://bettercode-book.org/book-ai-coding-assistants.html#version-control-for-agentic-workflows),
+saving progress before clearing context is part of the workflow. The aim is to make
+experimentation recoverable.
 
 ---
 

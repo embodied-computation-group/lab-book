@@ -1,5 +1,5 @@
 site_name: Agents in the Lab
-site_description: Claude Code for reproducible science — a handbook from the Embodied Computation Group
+site_description: A practical introduction to scientific AI agents for PhD students
 site_url: https://www.the-ecg.org/lab-book/
 
 # Book content lives in docs/. Every internal link is relative (pages/06-the-loop.md,
@@ -73,28 +73,31 @@ plugins:
 
 nav:
   - Home: index.md
-  - Foundations:
-      - 1. Start here: pages/01-start-here.md
-      - 2. Context is king: pages/02-context.md
-  - Getting going:
-      - 3. Setup: pages/03-setup.md
-      - 4. Project layout: pages/04-project-layout.md
-      - 5. Writing a CLAUDE.md: pages/05-claude-md.md
-  - Doing the work:
-      - 6. Running the loop: pages/06-the-loop.md
-      - 7. Verification: pages/07-verification.md
-      - 8. Reproducibility: pages/08-reproducibility.md
-      - 9. Notebooks and figures: pages/09-notebooks-and-figures.md
-      - 10. Skills: pages/10-skills.md
-  - Lab specifics:
-      - 11. Cluster work: pages/11-hpc.md
-      - 12. The genomedk skill: pages/12-genomedk-skill.md
-      - 13. Human-subject data: pages/13-data-and-ethics.md
-      - 14. Tips and tricks: pages/14-tips-and-tricks.md
+  - Start and try:
+      - Start here: pages/01-start-here.md
+      - Setup: pages/03-setup.md
+      - "Lab tutorial: import to analysis": pages/lab-data-tutorial.md
+      - "Quick warm-up: a fictional CSV": pages/first-exercise.md
+  - Everyday workflow:
+      - Working with context: pages/02-context.md
+      - Project layout and Git: pages/04-project-layout.md
+      - Writing a CLAUDE.md: pages/05-claude-md.md
+      - Running the loop: pages/06-the-loop.md
+      - Practical tips: pages/14-tips-and-tricks.md
+  - Results you can rely on:
+      - Verification: pages/07-verification.md
+      - Reproducibility: pages/08-reproducibility.md
+      - Notebooks and figures: pages/09-notebooks-and-figures.md
+      - Human-subject data: pages/13-data-and-ethics.md
+  - Optional extensions:
+      - Skills: pages/10-skills.md
+      - Cluster work: pages/11-hpc.md
+      - The genomedk skill: pages/12-genomedk-skill.md
   - Reference:
-      - 15. Resources: pages/15-resources.md
-      - 16. Contributing: pages/16-contributing.md
+      - Resources: pages/15-resources.md
+      - Contributing: pages/16-contributing.md
   - Templates:
       - Project tree: starters/project-tree.md
       - CLAUDE.md: starters/CLAUDE.md
+      - Model context example: starters/rescorla-wagner-spec.md
       - Verification checklist: starters/verification-checklist.md

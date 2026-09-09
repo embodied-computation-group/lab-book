@@ -1,73 +1,71 @@
 # 3. Setup
 
-[← Context is king](02-context.md) · [Contents](../index.md) · [Next: Project layout →](04-project-layout.md)
+[← Working with context](02-context.md) · [Contents](../index.md) · [Next: Project layout →](04-project-layout.md)
 
 ---
 
 ## Install
 
-```bash
-npm install -g @anthropic-ai/claude-code
-claude
-```
+Follow the [official installation guide](https://code.claude.com/docs/en/installation)
+for your operating system, then open a terminal in your project and run `claude`.
+The native installer is the recommended route. If you already use npm, the guide also
+covers that installation method.
 
 First run walks you through login. Run `claude` from inside a project directory — it takes
 the current directory as its working root and reads any `CLAUDE.md` it finds there.
 
 ## Plans and seats
 
-Relevant if you are paying for this yourself. Usage is quoted as multiples of the Pro
-plan's per-session allowance:
-
-| Tier | Usage per session | Price |
-|------|-------------------|-------|
-| Pro | 1x | $20/mo |
-| Team standard seat | 1.25x | $20/mo (free under the scientists programme) |
-| Max 5x | 5x | $100/mo |
-| Team premium seat | 6.25x | $100/mo ($15/mo under the scientists programme) |
-| Max 20x | 20x | $200/mo |
-
-The [Claude Team plan for scientists](https://claude.com/programs/team-plan-for-scientists)
-gives eligible PIs free standard seats and $15 premium seats, fixed for 12 months. A
-premium seat is slightly more headroom than Max 5x at 15% of the price, so if you were
-about to buy Max 5x, do this instead. Neither seat reaches Max 20x.
-
-Caveat: only the *per-session* multiple is published. Both Team seats and Max plans also
-carry a weekly cap across all models, and its absolute size is not documented for any
-tier, so the weekly ceilings are not directly comparable.
-
-Ask Micah before buying anything — the lab may already have seats.
+Ask Micah before buying a subscription: the lab may already have seats. Check the
+[scientists programme](https://claude.com/programs/team-plan-for-scientists) for current
+eligibility and terms. Prices and usage limits change, so they are not reproduced here.
 
 ## Python
 
-Python 3.13 on the lab Windows machines lives at:
+Lab members use macOS, Windows and Linux, including the Cybertron server. There is no
+single lab-wide Python path. Use the environment documented by the project you are
+working on; for a new practice project, the setup below works across these platforms.
 
+Use `uv` to manage the project's Python environment: a separate set of packages for
+this analysis. Its lockfile records the dependency versions. If setup is unfamiliar,
+ask the agent:
+
+```text
+Help me set up a new practice project. Check my operating system and shell,
+then check whether Git, Python and uv are installed. Explain anything
+missing and help me install what I need using instructions for this system.
+Keep the setup local to this project where possible.
+Use pandas and matplotlib for a small analysis, and pytest for tests.
+Explain the commands and save the setup in a Git commit.
 ```
-/c/Users/<you>/AppData/Local/Programs/Python/Python313/python.exe
-```
 
-`python` and `python3` do not resolve correctly in Git Bash on these machines, so use the
-full path, and tell the agent to as well — put it in your `CLAUDE.md` (page 5).
-
-Use `uv` for project environments. It is fast, it writes a lockfile, and a lockfile is the
-difference between a reproducible environment and a hopeful one:
+With uv installed, these commands initialise a new practice directory:
 
 ```bash
-uv venv
-uv add numpy scipy pandas arviz pymc
-uv run python analysis.py
+uv init
+uv add pandas matplotlib
+uv add --dev pytest
+uv run python --version
+uv run pytest --version
 ```
 
-Use `mamba`/`conda` only where you need non-Python binaries that are not on PyPI
-(FSL, FreeSurfer, MATLAB toolchains). Do not mix the two in one project. Whichever you
-pick, say so in `CLAUDE.md` — otherwise the agent will guess, and it guesses `pip`.
+These commands check the environment; they do not run an analysis. See the
+[uv project guide](https://docs.astral.sh/uv/guides/projects/) for details.
+
+For an existing project, follow its environment instructions. Some neuroimaging tools
+need conda, containers or separately installed software. Record the chosen setup in
+`CLAUDE.md` and avoid adding a second package-management workflow without a reason.
+
+On a shared server, follow its existing environment and installation arrangements.
+Cybertron and GenomeDK are different systems; the SLURM instructions later in this book
+are specifically for GenomeDK.
 
 ## Terminal basics you will actually use
 
 | Key | Does |
 |-----|------|
 | `Shift+Tab` | Cycle modes — get to **Plan Mode** before any nontrivial task |
-| `Esc` | Interrupt. Use it early and often; you are not being rude |
+| `Esc` | Interrupt the current response or action |
 | `Esc Esc` | Rewind to an earlier point in the conversation |
 | `/clear` | Wipe context and start fresh. Do this between unrelated tasks |
 | `/model` | Switch model |
@@ -76,10 +74,15 @@ pick, say so in `CLAUDE.md` — otherwise the agent will guess, and it guesses `
 
 ## Sanity check before you start real work
 
-- `git status` is clean and you are **not** on `main`.
-- The data you are pointing at is a copy, or is read-only.
-- You have a `CLAUDE.md`. Even three lines is better than none.
+- Save the starting state in Git and use a branch for substantial changes. The agent can
+  help initialise a practice repository; see [page 4](04-project-layout.md).
+- You are using fictional practice data. Read [page 13](13-data-and-ethics.md) before
+  granting access to research files.
+- You have a short `CLAUDE.md` with the environment, scope and data-access rules.
+
+Continue with the [internal lab tutorial](lab-data-tutorial.md) or the
+[fictional warm-up](first-exercise.md). You can add more project structure later.
 
 ---
 
-[← Context is king](02-context.md) · [Contents](../index.md) · [Next: Project layout →](04-project-layout.md)
+[← Working with context](02-context.md) · [Contents](../index.md) · [Next: Project layout →](04-project-layout.md)

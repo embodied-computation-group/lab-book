@@ -4,21 +4,26 @@
 
 ---
 
-GenomeDK (`ssh genome`, docs at <https://genome.au.dk/docs/>). This page is the agent-
-specific part. The full set of hard-won rules lives in the `genomedk` skill — run
-`/genomedk` in Claude Code and it will load them.
+This is an optional reference for work that needs GenomeDK. A cluster is a shared set
+of computers; SLURM schedules jobs on its compute nodes. The frontend (or login node)
+is where you prepare and submit jobs.
+
+Use the [GenomeDK documentation](https://genome.au.dk/docs/) and the lab's `genomedk`
+skill alongside this page. Account, partition and storage details can change; confirm
+them before a new large run. The MATLAB notes below record lab experience with specific
+workloads.
 
 ## The rule that matters most
 
 > **Never compute on the frontend.**
 
-`ssh genome` puts you on `fe-open-01`, a login node shared with the entire cluster. It is
-for editing, submitting, and inspecting. Not for work.
+`ssh genome` puts you on `fe-open-01`, a login node shared with the entire cluster. Use it
+for editing, submitting and inspecting jobs. Run analysis on an allocated compute node.
 
 This is easy to violate *by accident with an agent*, and that is the reason it is on this
 page. An agent asked to "test the script" will run the script. If that script invokes
 MATLAB, Python, or a solver directly, the computation happens on the login node and
-everyone notices.
+uses resources shared by other users.
 
 Two defences:
 
@@ -64,9 +69,9 @@ Sub-12-hour jobs belong in `short`. It is a large partition, usually not full, s
 backfill quickly even behind a deep queue. Run `gnodes` for the live picture.
 
 Size `--time` for the **worst** case, not the typical one. A job killed at the walltime
-writes nothing, and the jobs the walltime kills are exactly the slow-to-converge ones —
-which biases your surviving sample toward the well-behaved cases. That is a scientific
-problem, not just an inconvenience.
+may leave missing or incomplete output, and timeouts may disproportionately affect difficult fits.
+Reporting only surviving jobs can bias the analysed sample. Record failures and decide
+how to address them.
 
 ## Storage
 
@@ -86,20 +91,15 @@ problem, not just an inconvenience.
 
 ## Never let a long job depend on your ssh connection
 
-A dying ssh session takes its children with it. A MATLAB inversion killed at minute 13
-leaves a plausible-looking output file with no results in it. It looks like a result until
-you open it.
+An interactive process can end when its SSH connection closes. A partial output file
+may still exist, so file presence alone does not establish completion.
 
-Submit with `sbatch` and let SLURM own the process. If something genuinely must run outside
-SLURM, detach it:
+Submit long computations with `sbatch`, so SLURM manages them independently of your
+connection. Detaching a process does not allocate a compute node.
 
-```bash
-setsid nohup <cmd> > out.log 2>&1 < /dev/null & disown
-```
+## Check output content as well as job status
 
-## Verify by content, never by exit code
-
-The cluster-specific version of page 7, and the failure mode agents fall for hardest:
+Apply the checks from [page 7](07-verification.md) to job outputs:
 
 > **Check the number of output files that actually contain results. Not SLURM's COMPLETED
 > count.**
@@ -107,8 +107,7 @@ The cluster-specific version of page 7, and the failure mode agents fall for har
 Jobs exit zero having done nothing. A misconfigured job array is the classic case: with
 `--array=47`, `SLURM_ARRAY_TASK_MIN == MAX == 47`, so a shard count computed as
 `max - min + 1` is 1, a selector like `mod(idx, 1) == 47` matches nothing, and every task
-exits successfully having computed nothing. SLURM reports COMPLETED. An agent asked "did
-the array finish?" will say yes.
+exits successfully having computed nothing. SLURM reports COMPLETED. A status-only check will miss this.
 
 So the question to ask is always "how many output files exist and do they contain the
 fields a finished run writes", and the design rule is to **make every task skip work that
@@ -123,12 +122,12 @@ sacct -j <job_id> --format=JobID,State,Elapsed,ExitCode,MaxRSS -P
 priority -a             # why is this not running
 ```
 
-Agents poll far too eagerly. Checking a four-hour job every thirty seconds burns your
-session and tells you nothing. Submit, go do something else, check back once.
+Agree a checking interval appropriate to the job length. For a multi-hour run, frequent
+polling rarely helps unless you are investigating a failure.
 
 ## MATLAB and SPM here
 
-Lab specifics, so nobody rediscovers them:
+Recorded lab observations; recheck these when software or workloads change:
 
 - SPM12: `/faststorage/project/ecg_general/toolbox/spm12`
 - Always `-singleCompThread -nodisplay -nosplash -batch`. For spectral DCM,

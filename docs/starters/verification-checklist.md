@@ -1,82 +1,58 @@
 # Verification checklist
 
-Run through this before you believe a result, and definitely before it goes in a
-manuscript. Full reasoning on [page 7](../pages/07-verification.md).
+Use this for results you will rely on. For the first exercise, start with the expected
+answer and a rerun. Add checks as the analysis grows.
 
-Copy into your project as `VERIFICATION.md` and tick as you go — a filled-in copy is also
-a useful thing to show a supervisor or attach to a replication package.
+Copy this into your project as `VERIFICATION.md`. Link to evidence beside each relevant
+item: test output, a diagnostic figure or a run record. Mark an item "not applicable"
+with a reason when needed. See [page 7](../pages/07-verification.md).
 
----
+## Scientific specification
 
-## Ground truth
+- [ ] The question, unit of analysis, units and missing-data policy are documented.
+- [ ] Model equations and conventions are specified where applicable.
+- [ ] The implementation matches the intended method.
+- [ ] Exploratory changes are distinguished from preregistered analyses.
 
-- [ ] There is a simulator that generates data from known parameters.
-- [ ] A test recovers those parameters within a stated tolerance.
-- [ ] The test was written **before** the implementation, or by a session that had not
-      seen it.
+## Calculation checks
 
-## Adversarial checks
+- [ ] A small example agrees with a calculation made independently.
+- [ ] A deliberately introduced plausible error is detected.
+- [ ] Tests cover relevant invalid inputs, duplicates and missing values.
+- [ ] Expected test values were reviewed and not changed merely to pass.
+- [ ] Diagnostic plots have been inspected and unexpected patterns investigated.
 
-- [ ] I broke the model deliberately (flipped a sign) and a test failed.
-- [ ] I shuffled the condition labels and the effect collapsed to chance.
-- [ ] All-NaN input raises rather than returning a number.
-- [ ] A duplicated subject is caught by something.
-- [ ] At least one check has actually fired at some point. Checks that have never failed
-      are not evidence.
+## Model fitting, if applicable
 
-## Pipeline assertions
+- [ ] Recovery is assessed over relevant parameters, sample sizes and several seeds.
+- [ ] Tolerances are justified and weakly identifiable parameters are discussed.
+- [ ] Convergence and boundary estimates are checked.
+- [ ] Reported uncertainty is evaluated, including interval coverage where appropriate.
 
-At the top of every processing step:
+## Review and history
 
-- [ ] subject count equals the expected N
-- [ ] every value is inside its plausible range (confidence scale, RTs, IBIs)
-- [ ] no duplicate subject × trial rows
-- [ ] missingness is explicit — no silent `dropna()`
-- [ ] units are asserted or documented (ms vs s, BPM vs IBI)
+- [ ] I can explain the key calculation and the limits of its checks.
+- [ ] Code and new files have been reviewed.
+- [ ] Any fresh-session review findings have been checked and addressed.
+- [ ] Small, descriptive commits record the changes and relevant check outcomes.
 
-## Eyes on data
+## Reproduction
 
-- [ ] Distributions plotted per subject, not just in aggregate.
-- [ ] Fitted curves drawn over the actual data points.
-- [ ] Each variable plotted before and after every transformation.
-- [ ] Residuals inspected.
-- [ ] I have looked at the subject with the most extreme estimate and it is not an artefact.
+- [ ] A documented command reproduces the result from saved inputs and settings.
+- [ ] The environment is recorded and the lockfile committed where used.
+- [ ] Random seeds are recorded where applicable.
+- [ ] The run record identifies code version, uncommitted changes, inputs and settings.
+- [ ] A clean rerun produces the expected result.
+- [ ] Fictional observations are labelled and cannot be mistaken for collected data.
+- [ ] The AI-assistance disclosure accurately describes what was done.
 
-## Independent confirmation
+## Cluster runs, if applicable
 
-- [ ] One key number re-derived a second way (different library, language, or by hand).
-- [ ] One subject computed entirely by hand from their raw file and it matches.
-- [ ] A fresh session (`/clear`) reviewed the code and I addressed what it found.
+- [ ] Expected outputs are present and contain the required results.
+- [ ] Missing, failed and timed-out jobs are accounted for.
+- [ ] Computation ran on allocated compute nodes.
 
-## Code vs claims
+## Outstanding questions
 
-- [ ] Pipeline compared line by line against the methods section; discrepancies resolved.
-- [ ] Exclusions in the code match the exclusions in the text, with the same count.
-- [ ] Model terms, priors, and transformations match the preregistration.
-- [ ] No leftover debug flags, hardcoded paths, or `n_subjects = 5` test values.
-
-## Reproducibility
-
-- [ ] Every figure and table is produced by a rule in the Snakefile.
-- [ ] `snakemake -n` on a clean checkout says everything is up to date for the right reasons.
-- [ ] Environment is pinned and the lockfile is committed.
-- [ ] Seeds set in one place and recorded.
-- [ ] Provenance recorded: commit hash, date, package versions.
-
-## Cluster runs (if applicable)
-
-- [ ] I counted **output files containing real results**, not SLURM's COMPLETED count.
-- [ ] No job was killed at the walltime — or if some were, I know which and why, and I have
-      accounted for the bias that introduces.
-- [ ] Nothing was computed on the frontend.
-
-## Provenance of the code itself
-
-- [ ] I can explain what every file in `src/` is for.
-- [ ] No AI-generated data is anywhere outside `data/generated/`.
-- [ ] The AI-assistance disclosure sentence in the manuscript is accurate.
-
----
-
-**If more than two boxes are unticked, the honest description of what you have is "the
-agent produced a number".**
+Record remaining uncertainties and who will help resolve them. Completion is a judgement
+about relevant evidence, not a score based on the number of ticked boxes.

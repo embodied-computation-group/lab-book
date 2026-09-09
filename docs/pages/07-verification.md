@@ -4,109 +4,105 @@
 
 ---
 
-This is the page that matters. Reading agent-written code is not verification. The code
-will look fine, because looking fine is what these models are best at.
+Verification asks whether the code performs the intended calculation. Scientific
+validation also asks whether that calculation is appropriate for the question and data.
+Readable code and passing tests help, but neither settles both questions.
 
-Checklist version: [`starters/verification-checklist.md`](../starters/verification-checklist.md).
+Use the [verification checklist](../starters/verification-checklist.md) to record evidence.
+Choose checks that match your analysis and explain items that do not apply.
 
-## 1. Test against a known answer
+## 1. Define expected behaviour before implementation
 
-The strongest technique in scientific code, agent or not: **simulate data where you know
-the truth, then check that the code recovers it.**
+Write down inputs, outputs and failure cases. For a descriptive calculation, a small
+example worked by hand may be enough to define a useful test. The
+[first exercise](first-exercise.md) demonstrates this.
+
+For a fitted model, simulate observations from known parameters and assess recovery.
+The simulator and fitter must use the same documented parameter definitions, but should
+not share code that could reproduce the same mistake in both.
+
+A recovery study should cover plausible parameter values, sample sizes and multiple
+random seeds. Set acceptable error based on scientific needs and simulation variability.
+If you report intervals, examine their coverage as well as point estimates. A single
+successful fit with one seed is a useful development check, not a validation study.
+
+Test-first development makes the specification inspectable before the code is written.
+It does not prevent the agent from changing a test or hardcoding an answer. Review both
+the implementation and any changes to the tests.
+
+## 2. Check whether your tests detect errors
+
+Temporarily introduce a plausible error and check that a relevant test fails. Save the
+working version first, then restore it and rerun the tests.
+
+Examples include:
+
+- reversing a contrast or changing a unit conversion;
+- duplicating a participant/trial row;
+- passing an empty input or an invalid missing-value code;
+- replacing participant-level averaging with trial-level averaging.
+
+For a classification or permutation analysis, shuffled labels can provide a null check.
+Choose a shuffle that respects the study's dependence structure; a single shuffle need
+not give exactly chance performance.
+
+## 3. Validate inputs in the pipeline
+
+Check counts, ranges, uniqueness, units and missingness at the relevant processing step.
+Here is an illustrative example; the expected count and ranges must come from your study:
 
 ```python
-def test_recovers_known_slope():
-    # 500 trials from a psychometric function with known parameters
-    true_threshold, true_slope = 2.5, 0.8
-    data = simulate_psychometric(true_threshold, true_slope, n=500, seed=0)
-
-    fit = fit_psychometric(data)
-
-    assert abs(fit.threshold - true_threshold) < 0.3
-    assert abs(fit.slope - true_slope) < 0.15
+if df.subject_id.nunique() != expected_n:
+    raise ValueError("Unexpected participant count")
+if not df.confidence.between(1, 100).all():
+    raise ValueError("Confidence must be present and between 1 and 100")
+if df.duplicated(["subject_id", "trial"]).any():
+    raise ValueError("Duplicate participant/trial pair")
 ```
 
-If an agent wrote `fit_psychometric`, this test is the only thing standing between you and
-a wrong paper.
+If missing values are permitted, implement and test that policy explicitly. Python
+`assert` statements are useful during development, but can be disabled with optimisation;
+use explicit errors for checks that must always run.
 
-Ask for it in that order, explicitly: *write the simulator and the test first, with known
-true parameters, then implement the fit.* It is a much better brief than "fit a
-psychometric function", and the agent cannot tune the code to a test that already exists.
+## 4. Inspect diagnostic plots
 
-## 2. Make it fail on purpose
+Look at distributions per participant, traces before and after processing, fitted curves
+over observations, and residuals where appropriate. Decide what you expect before looking:
+for example, a unit conversion should rescale values without changing the distribution's
+shape.
 
-A test that has never failed is not evidence. Break things and check the test notices:
+Record unexpected patterns and investigate them. A plausible plot is not sufficient
+evidence that every processing step is correct.
 
-- flip a sign in the model
-- shuffle the condition labels — accuracy should collapse to chance
-- pass all-NaN input — it should raise, not return a number
-- feed it one subject twice — does anything catch the duplicate?
+## 5. Cross-check a key result independently
 
-If none of your checks fire, you do not have checks.
+Recalculate a tractable part by hand or compare with an established implementation.
+Check that both routes use the same conventions. Two wrappers around the same faulty
+function are not independent checks.
 
-## 3. Assertions in the pipeline, not only in tests
+For a complex model, inspect a small case closely and seek review from someone familiar
+with the method. A second agent session is useful additional review, but does not replace
+that expertise.
 
-Cheap, permanent, and they catch the failures that actually happen, which are data
-failures rather than code failures:
+## 6. Compare the code with the scientific claim
 
-```python
-assert df.subject_id.nunique() == N_SUBJECTS
-assert df.confidence.between(1, 100).all()
-assert not df.duplicated(["subject_id", "trial"]).any()
-assert df.rt.gt(0).all()
+Before submission or revision, compare the implementation with the methods and, where
+applicable, the preregistration:
+
+```text
+Compare manuscript/methods.md with the analysis code.
+List discrepancies in exclusions, model terms, priors, transformations
+and filter settings. Give file locations. Do not change either file.
 ```
 
-Every one of those corresponds to something that has gone wrong in somebody's real
-analysis. Put them at the top of each processing step. An agent will write them if you ask
-and will not if you do not.
+Resolve discrepancies explicitly. Do not silently rewrite a preregistered method to
+match an unplanned analysis. Label exploratory changes and explain their rationale.
 
-## 4. Plot everything, early and cheaply
+## What to bring to supervision
 
-Look at the data at every stage: distributions per subject, raw traces, the fitted curve
-over the actual points, residuals. This is how you catch the agent having misread your data
-structure. A plot makes it obvious in a second, where the code and the numbers both looked
-fine.
-
-Generate a lot of these and throw them away. They are cheap now, so use them.
-
-## 5. Cross-check independently
-
-For anything going into a paper:
-
-- **Re-implement the key number a second way.** Different library, different language, or
-  by hand. Two independent routes to the same value is real evidence.
-- **Do one subject entirely by hand.** Take subject 3, their raw trial file, and a
-  calculator; compare to the pipeline output. Tedious, and it catches indexing bugs that
-  survive everything else.
-- **Ask a fresh session to find the bug** (page 6). Different framing, different blind
-  spots.
-
-## 6. Check the code against the methods section
-
-Agents drift. The pipeline at submission is frequently not the pipeline you described.
-
-```
-Read manuscript/methods.md and scripts/run_analysis.py.
-List every discrepancy: excluded subjects, model terms, priors,
-transformations, filter settings. Do not summarise. List.
-```
-
-Before every submission, and again before every revision.
-
-## What "done" means
-
-A result is believable when:
-
-- [ ] a test recovers known parameters from simulated data
-- [ ] you have broken it deliberately and the checks fired
-- [ ] assertions cover subject counts, ranges, duplicates, missingness
-- [ ] you have looked at plots at every stage
-- [ ] one key number is confirmed by a second, independent route
-- [ ] the code matches the methods section line by line
-- [ ] a fresh session reviewed it and you addressed what it found
-
-Anything less, and the honest description of what you have is "the agent produced a
-number".
+Bring the result, the relevant checks and their outputs, and any remaining uncertainty.
+Be ready to explain one known-answer test, one error it detects and one error it would
+miss. This is more informative than reporting how many tests passed.
 
 ---
 

@@ -1,73 +1,52 @@
 # Agents in the Lab
 
-**Claude Code for reproducible science.** A handbook from the Embodied Computation Group for
-PhD students and postdocs using agentic coding tools on real analyses — built around one
-loop, **Context → Plan → Execute → Review**, and the rule that code is now generated faster
-than it can be verified.
+A practical lab book from the Embodied Computation Group for PhD students using AI coding
+agents in scientific work. Start with a small analysis, give the agent useful context,
+check the result and commit often.
 
-Sixteen short pages plus copyable starter files. Written for our lab; public because
-most of it is generally useful and none of it is secret.
+The examples use Claude Code. The main references are
+[Ten Simple Rules for AI-Assisted Coding in Science](https://arxiv.org/abs/2510.22254)
+and Russ Poldrack's [Coding with AI](https://bettercode-book.org/book-ai-coding-assistants.html).
+The book introduces their ideas gradually, with an accessible first exercise and optional
+material on modelling, skills and cluster work.
 
 ## Read it
 
-### → **<https://www.the-ecg.org/lab-book/>**
+[Open the lab book](https://www.the-ecg.org/lab-book/) or start at
+[docs/index.md](docs/index.md) on GitHub.
 
-Sidebar nav, full-text search, dark mode. Rebuilt automatically on every push to `main`.
-
-**On GitHub** — start at **[docs/index.md](docs/index.md)** and click through. Every page
-has prev/next links, so it pages like a book either way.
-
-**Locally**, if you are editing it — one command, no
-install, no hosting:
+To preview locally with uv installed:
 
 ```bash
 uvx --with mkdocs-material mkdocs serve
 ```
 
-Then open <http://127.0.0.1:8000>. That is the nicer way to read it and the better way to
-search it when you are looking for one specific thing.
+Open <http://127.0.0.1:8000>. To check the static build:
 
-To build static HTML instead: `uvx --with mkdocs-material mkdocs build` → `site/`
-(gitignored).
+```bash
+uvx --with mkdocs-material mkdocs build --strict
+```
 
-## What does not go in here
+The site is rebuilt automatically on pushes to `main`.
 
-The repo is public, so:
+## Contribute
 
-- no credentials of any kind — tokens, keys, passwords, `.env` contents
-- no participant data or identifiers, including **real** exclusion lists and subject IDs
-- no unpublished results, or specifics of a design that is not out yet
-- nothing from a collaborator's project that is not ours to publish
+Keep the writing concrete and welcoming. Explain unfamiliar tools before using them,
+and distinguish beginner habits from optional extensions.
+See [Contributing](docs/pages/16-contributing.md).
 
-Example data in `docs/starters/` is fictional and labelled as such. Cluster paths and
-account names are fine — they are not secrets, and they are the specifics that make the
-cluster pages worth reading.
-
-Full guidance in [Contributing](docs/pages/16-contributing.md).
+This repository is public. Do not add credentials, participant information, unpublished
+results or material from collaborators that we do not have permission to publish.
+Teaching data must be fictional and labelled as such.
 
 ## Layout
 
-```
+```text
 docs/
-├── index.md        # the book's cover and contents table
-├── pages/          # 01–16, one idea per page
-└── starters/       # copyable: CLAUDE.md, Snakefile, gitignore, checklists
-mkdocs.yml          # site config; nav lives here
+├── index.md        # introduction and staged reading paths
+├── pages/          # chapters and the first exercise
+└── starters/       # copyable examples
+mkdocs.yml          # site configuration and navigation
 ```
 
-Links are all relative, so they work both in the rendered site and when browsing raw `.md`
-on GitHub. Keep it that way — see [Contributing](docs/pages/16-contributing.md).
-
-## The short version
-
-1. **Context first.** The agent knows only what is in the window. Too little and it
-   guesses; too much and it forgets. Point at files; `/clear` between tasks.
-2. **Plan before code.** Plan Mode, and argue with the plan while it is still text.
-3. **Code is generated faster than it can be verified.** Review is the job now.
-4. **Review in a fresh session.** A context that wrote the code is a bad judge of it.
-5. **An orchestrator between the agent and your outputs**, so you know which code produced
-   which file.
-6. **Generated data never touches `data/raw/` or `data/processed/`.**
-7. **Never compute on the GenomeDK frontend.** An agent asked to "test the script" will run
-   the script.
-8. **No participant data in a context window.** Ever.
+Use relative links so the book works both on GitHub and as a rendered site.

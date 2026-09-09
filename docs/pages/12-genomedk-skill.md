@@ -1,107 +1,77 @@
-# 12. Driving the cluster with the `genomedk` skill
+# 12. Driving the cluster with the genomedk skill
 
 [← Cluster work](11-hpc.md) · [Contents](../index.md) · [Next: Human-subject data →](13-data-and-ethics.md)
 
 ---
 
-Page 11 is the rules. This page is the worked example: the lab keeps its GenomeDK knowledge
-in a **skill** — [page 10](10-skills.md) explains what those are — so you do not have to
-remember any of it, and neither does the agent.
+This optional example combines the workflow from [page 6](06-the-loop.md) with the lab's
+cluster procedure. Use it when you have an analysis that needs GenomeDK, after you have
+checked the code on a small case.
 
-## Using it
+A **job array** runs the same script for several inputs, such as one model fit per
+participant. A **smoke test** is a small initial run to check that the setup works.
 
-```
+## Load the procedure and plan
+
+With the skill installed from the lab's [ai-skills repository](https://github.com/embodied-computation-group/ai-skills),
+invoke `/genomedk`. For example:
+
+```text
 /genomedk
+Plan a job array for the analysis described in MODEL.md.
+Each input takes about 20 minutes. Use the approved project storage.
+Check the account, partition, resource requests and output paths.
+Do not submit yet. Show how each array task selects its input,
+including when we submit only one task.
 ```
 
-Then say what you want. It works well when you describe the goal rather than the commands:
+Read the plan against [page 11](11-hpc.md) and the current cluster documentation.
+The skill supplies local procedure, but you still need to check that it was applied
+correctly. Save the job script and configuration in a focused commit.
 
-```
-/genomedk
-I need to run the spectral DCM inversion over all 487 subjects in
-manifest.csv. Each takes about 20 minutes. Set up the job array and
-submit one task as a smoke test first.
-```
+## Run one task
 
-What the skill supplies, so you do not have to:
-
-- **the frontend rule** — it will submit rather than run, and it knows that
-  `smoke_test.sh` calling `matlab -batch` is a trap
-- **`--account ecg_general`** on every submission, and why that account beats a personal one
-- **partition choice** — `short` for sub-12-hour work, and the current walltime table
-- **`--array=0-486%50`** syntax, sharding by `mod(idx, n_tasks)`, and the single-element
-  array trap that makes SLURM report COMPLETED having computed nothing
-- **storage layout** — results to `/faststorage`, the magic `backup/` directory name, and
-  the fact that `du` under-reports on BeeGFS
-- **our SPM12 and MATLAB paths**, `-singleCompThread`, the `DCM.M.nograph` requirement
-- **verify by content, not exit code** — count output files with real fields in them
-- **MathWorks error 5001** at high launch rates, and designing tasks to skip completed work
-  so you can resubmit the same array
-
-Without the skill you get generic SLURM advice that is subtly wrong for this cluster. With
-it you get our cluster.
-
-## A good session shape
-
-```
-/genomedk
-
-Plan only, do not submit yet: I want to fit the RRST psychophysical
-model per subject on GenomeDK. Inputs are in
-/faststorage/project/ecg_general/rrst/derivatives.
-Roughly 90 subjects, a few minutes each.
+```text
+Submit one task as a smoke test using the agreed configuration.
+Confirm that computation runs on an allocated node.
+Check the output against the expected schema and completion criteria.
+Report job status and output validation, without printing participant data.
 ```
 
-Read the plan. Check the account, the partition, the walltime, and where output lands. Then:
+A successful exit is not enough. Check that the file contains the expected fitted
+parameters and diagnostics, and that the intended input was processed.
 
-```
-Submit exactly one task as a smoke test. Report the output file path
-and size, and confirm it contains fitted parameters.
-```
+If the single-task selection is wrong, fix and commit the indexing before proceeding.
+Submitting one element of an array must not change the mapping from task IDs to inputs.
 
-Only then the full array. This sequence — plan, one task, verify content, full submit — is
-the whole discipline of cluster work, and it maps directly onto page 6.
+## Run the remaining work
 
-## Things to still do yourself
-
-The skill removes the recall burden, not the judgement:
-
-- **`--time` sizing.** You know how long your model takes. Size for the worst case
-  (page 11), because the jobs a walltime kills are the slow-converging ones and losing them
-  biases your sample.
-- **Deciding a run is finished.** Ask for the count of output files containing real
-  results. Never accept "the array completed".
-- **Anything touching participant data.** Page 13 applies on the cluster exactly as it does
-  locally.
-
-## Adding to the skill
-
-This is the part that compounds. When you lose an afternoon to a cluster quirk, put it in
-the skill and nobody in the lab loses that afternoon again.
-
-The source of truth is `skills/genomedk/SKILL.md` in
-[`ai-skills`](https://github.com/embodied-computation-group/ai-skills). Its `install.sh`
-symlinks that into `~/.claude/skills/`, so editing either edits both. Easiest route is to
-just ask, in a session where you have the fresh scar tissue:
-
-```
-Add to the genomedk skill: jobs on gpu-h200 need --gres=gpu:1 or they
-get a node with no GPU visible and fail after 40 minutes with a CUDA
-error that looks like a driver problem.
+```text
+The smoke test passed. Submit the remaining tasks.
+Keep the same input mapping and configuration.
+Validate existing outputs before skipping them.
+Record job IDs and the code commit, and check progress at an interval
+appropriate to the expected run time.
 ```
 
-Write entries the way the existing ones are written: the symptom you actually saw, why it
-happens, and the fix. "A job that succeeded but wrote nothing" is a useful entry.
-"Be careful with arrays" is not.
+Count validated outputs and account for missing or failed tasks. Check whether timeouts
+disproportionately affect particular inputs. Keep the run record with the results in
+approved storage.
 
-Then regenerate the ports — `python3 scripts/build_ports.py`; the repo's `--check` fails
-for the next person if you skip it — commit both, and open a PR. Improvements travel by
-pull request, and everyone's next session has them.
+## Record a useful fix
 
-## Other skills
+When you discover a cluster issue, describe the symptom, cause and tested remedy in the
+shared skill. For example, a missing GPU request belongs beside the GPU submission
+instructions.
 
-[Page 10](10-skills.md) lists the lab's skills, the external collections we use, and
-`/interview`. `/help` shows what is currently installed.
+```text
+Draft a short update to the genomedk skill describing the failure we
+just diagnosed and the fix we tested. Include the conditions under
+which it applies. Show me the change before committing it.
+```
+
+Follow the ai-skills repository's current instructions for updating generated copies and
+opening a PR. Other lab members receive the change when they update their installation.
 
 ---
 

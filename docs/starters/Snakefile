@@ -1,15 +1,16 @@
-# Minimal Snakemake skeleton for a lab analysis.
+# Optional advanced Snakemake skeleton for a lab analysis.
 #
 # Why this exists: it is the dependency graph between the agent and your outputs.
-# Without it you cannot tell which results are current, which are stale, and which
-# code produced any of them. See pages/07-reproducibility.md.
+# Start with a documented script; use this when you need explicit dependencies.
+# See pages/08-reproducibility.md. This is not runnable as supplied: add config.yaml,
+# the referenced scripts and approved inputs. Declare script/config dependencies
+# for each rule before using it to track changes.
 #
 #   snakemake -n                 dry run: what would rebuild, and why
 #   snakemake --cores 4 all      reproduce everything
 #   snakemake --dag | dot -Tsvg > dag.svg
 #
-# Rule for the lab: if a figure in a paper was not produced by a rule in here,
-# it does not go in the paper.
+# A rule can describe how a figure is produced. Snakemake is optional, not lab policy.
 
 import os
 
@@ -43,7 +44,7 @@ rule preprocess:
 
 
 # ---------------------------------------------------------------------------
-# Per-subject model fit. Parallelises across subjects for free.
+# Per-subject model fit. Jobs can run in parallel within allocated resources.
 # ---------------------------------------------------------------------------
 rule fit_subject:
     input:
@@ -99,7 +100,9 @@ rule tables:
 
 
 # ---------------------------------------------------------------------------
-# Provenance stamp. Run before submission; commit the output alongside results.
+# Illustrative provenance stamp. Not included in rule all.
+# It does not automatically refresh or record input hashes; adapt it per run.
+# Preserve the run record in approved storage alongside results.
 # ---------------------------------------------------------------------------
 rule provenance:
     output:

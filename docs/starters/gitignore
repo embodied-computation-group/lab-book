@@ -1,10 +1,10 @@
 # Research project .gitignore
-# Copy to your project as `.gitignore`. See ../pages/03-project-layout.md.
+# Copy to your project as `.gitignore`. See ../pages/04-project-layout.md.
 
 # --- Data: never in git ---
-data/raw/
-data/processed/
-data/generated/
+data/raw/*
+data/processed/*
+data/generated/*
 *.nii
 *.nii.gz
 *.dcm
@@ -21,7 +21,7 @@ data/generated/
 !data/processed/.gitkeep
 !data/generated/.gitkeep
 
-# --- Anything identifiable, belt and braces (see ../pages/11-data-and-ethics.md) ---
+# --- Anything identifiable, belt and braces (see ../pages/13-data-and-ethics.md) ---
 *participant_key*
 *consent*
 *identifiable*
@@ -35,8 +35,8 @@ scratch/
 logs/
 .snakemake/
 
-# Except final figures if you want them tracked — uncomment if so:
-# !results/figures/*.pdf
+# Review any outputs before deliberately adding them to a repository.
+# Internal tutorial outputs stay private.
 
 # --- Environments ---
 .venv/
@@ -51,8 +51,8 @@ __pycache__/
 # uv.lock IS committed. Do not add it here.
 
 # --- Notebooks ---
-# .ipynb outputs bloat diffs; prefer .qmd or marimo (../pages/08-notebooks-and-figures.md).
-*.ipynb
+# Review notebook code and outputs; see ../pages/09-notebooks-and-figures.md.
+# Decide whether to strip outputs or pair with a text file before committing.
 
 # --- Editor / OS ---
 .DS_Store
@@ -71,7 +71,7 @@ credentials.json
 token.json
 
 # --- Claude Code ---
-# CLAUDE.md IS committed — it is lab knowledge (../pages/04-claude-md.md).
+# CLAUDE.md IS committed — it is lab knowledge (../pages/05-claude-md.md).
 # Local settings and session state are not.
 .claude/settings.local.json
 .claude/history/

@@ -4,84 +4,68 @@
 
 ---
 
-This book is only useful if it keeps up. The bar for adding something is low.
+Add examples, corrections and practical lessons from your work. The intended reader is
+a lab member who may be new to coding and wants to try agents on a scientific problem.
 
-## What is worth adding
+## What helps
 
-**Scar tissue.** The best entries in here are things that cost somebody an afternoon. If
-you hit a failure that was not obvious, was not in the error message, and took you a while
-to understand — that is a paragraph somebody else will thank you for.
+A useful addition explains a task, shows how to approach it, and gives the reader a way
+to check the result. A short account of a mistake and its fix is welcome too.
 
-**Corrections.** If something here is wrong or out of date, fix it. Do not add a caveat
-next to the wrong thing; replace the wrong thing.
-
-**Resources you actually read.** Page 15 only lists things somebody opened. If you add a
-link, say what is in it and whether you read it — an unverified link is worse than no link,
-because it looks like a recommendation.
-
-## What does not go in
-
-- Anything secret: tokens, passwords, participant identifiers, unpublished results.
-- Long prose. One page, one idea, readable in five minutes.
-- Generic content already covered better elsewhere. Link to page 15 instead.
-
-## How to add a page
-
-1. `git switch -c labbook-<topic>`
-2. Copy the structure of an existing page: `# N. Title`, nav line, `---`, content, nav line
-   again at the bottom.
-3. Number it. If you insert in the middle, renumber the following pages and fix their nav
-   links — `sed -i` handles it, and it is worth doing rather than leaving a `7b`.
-4. Add the row to the table in `docs/index.md`, and to the `nav:` block in `mkdocs.yml`.
-5. Push and open a PR. Tag Micah.
-
-Nav line format, top and bottom of every page:
-
-```markdown
-[← Previous page](0N-previous.md) · [Contents](../index.md) · [Next: Title →](0N-next.md)
-```
+Keep advanced tools optional until the reader has a reason to need them. Do not describe
+a personal preference or suggested tool as established lab policy.
 
 ## Style
 
-Match what is here:
+Use plain language and explain unfamiliar terms on first use. Prefer a concrete example
+to a slogan. Avoid claims that a prompt, test or skill guarantees success.
 
-- Plain declarative sentences. Say the thing.
-- Concrete over abstract. "8 threads took 50 minutes against 17 single-threaded" beats
-  "multithreading can be slower".
-- Commands you have actually run, pasted from your terminal.
-- No hedging about how exciting the technology is. Everybody reading this already uses it.
-- Where something is uncertain or unverified, **say so in the sentence**, not in a footnote.
-  A buried caveat is not a caveat.
+Keep the tone encouraging. Students should feel able to experiment, make small commits
+and restart. Scientific care should be taught through the work, not presented as a long
+list of prerequisites.
 
-## Using an agent to edit this book
+Preserve useful lab details, but distinguish measured observations from general claims.
+For a timing comparison, say which task and environment it came from.
 
-Fine, and slightly recursive. Two rules:
+Do not turn a detail from your own computer into a claim about the lab. Setup instructions
+should work across macOS, Windows and Linux, or clearly state which system they describe.
 
-- **Do not let it invent links or citations.** Every URL in here was fetched and checked.
-  If an agent adds one, open it yourself before merging. This is the single most common way
-  a document like this rots.
-- **Do not let it smooth out the specifics.** Agents like to generalise "the licence server
-  drops tasks above roughly 20 launches per minute" into "be mindful of rate limits". The
-  specifics are the entire value.
+## Edit or add a page
 
-## This repo is public
+1. Work on a branch and make focused commits as you go. An agent can help write and
+   commit the changes.
+2. Use a descriptive title and links to related pages.
+3. Keep existing filenames stable where possible. A new tutorial does not need to
+   renumber every chapter.
+4. Update the reading paths in `docs/index.md` and navigation in `mkdocs.yml`.
+5. Run `uvx --with mkdocs-material mkdocs build --strict`.
+6. Review the diff, then open a PR.
 
-Deliberately. Most of what is in here is generally useful, few labs write it down, and our
-cluster paths and account names are not secrets.
+Use relative links so pages work on GitHub and the rendered site.
 
-So the bar for adding something is: **would I mind a stranger reading this?** Almost always
-no. What must never go in:
+## Sources
 
-- credentials of any kind — tokens, keys, passwords, `.env` contents
-- participant data or identifiers, including **real** exclusion lists and subject IDs
-- unpublished results, or the specifics of a design that is not out yet
-- anything from a collaborator's project that is not ours to publish
+The main scientific computing references are
+[Ten Simple Rules](https://arxiv.org/abs/2510.22254) and
+[Poldrack's AI chapter](https://bettercode-book.org/book-ai-coding-assistants.html).
+Use current official documentation for tool behaviour.
 
-Example data in the starter files is fictional and labelled as such. Keep it that way —
-invented subject exclusions read as real ones to someone skimming.
+Open new links and check that they support the accompanying text. Give a source for
+substantive claims, and distinguish your own teaching examples from source material.
+Do not claim the entire reading list has been rechecked unless it has.
 
-If something fails that bar, it belongs in the project's own private repo or in a
-gitignored `NOTES.md`, not here.
+## This repository is public
+
+Keep credentials, participant identifiers, real exclusion lists, unpublished results and
+restricted collaborator material out of the book. Do not copy content from a private
+project merely because you can access it.
+
+Fictional teaching data must be labelled as such. For a real-data tutorial, confirm the
+release and access arrangements, link to the source and record the version.
+An internal lab exercise must be labelled as internal.
+
+Private material belongs in its approved project storage. A gitignored file is not
+protected from agent access or accidental sharing.
 
 ---
 

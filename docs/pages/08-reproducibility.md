@@ -4,110 +4,117 @@
 
 ---
 
-Verification asks "is this right". Reproducibility asks "could anyone, including me in six
-months, get this number again". Agents make the second question much harder, because they
-regenerate files freely and cheerfully.
+A reproducible analysis can be rerun from its saved code, inputs and settings. Start with
+one documented command. You do not need a workflow framework for a small project.
 
-## Put an orchestrator between the agent and your outputs
+A **pipeline** is simply the sequence of steps that turns inputs into results: for
+example, load data, check it, calculate participant means and save a figure.
 
-This is the highest-leverage thing on the page. Use **Snakemake** (preferred in this lab)
-or `make`. Skeleton at [`starters/Snakefile`](../starters/Snakefile).
+## Start with a script and a README
 
-Why it matters more with an agent than without: an agent will re-run a script, overwrite a
-figure, and move on. Without a dependency graph you cannot tell which outputs are current,
-which are stale, and which code produced any of them. Provenance dissolves in an afternoon
-of enthusiastic iteration.
-
-With a Snakefile you get, for free:
-
-- **`snakemake -n`** — dry run. What would rebuild, and why. Have the agent run this
-  before it runs anything.
-- **stale detection** — outputs older than their inputs get rebuilt, so you cannot
-  accidentally report a figure from last week's exclusions.
-- **one command to reproduce everything** — `snakemake --cores 4 all`. That command is
-  what goes in your README and your replication package.
-- **a readable map of the analysis** — which is also the best possible context for an
-  agent joining the project.
-
-Rule for the lab: **if a figure in a paper was not produced by a rule in the Snakefile, it
-does not go in the paper.**
-
-## Pin the environment
+Put the steps in a script that runs from beginning to end without requiring you to
+remember which notebook cells to execute. In the exercise, that might be:
 
 ```bash
-uv add pymc arviz     # writes uv.lock
-uv run python scripts/fit.py
+uv run python scripts/analyse.py
 ```
 
-Commit `uv.lock`. "It worked on my machine in March" is not a method.
+This command is an example: use the actual filename in your project. In `README.md`,
+record the environment setup, required input files, settings, output locations and test
+command. State whether a rerun overwrites results.
 
-For conda projects, export an explicit environment and commit it:
+Ask the agent to assemble the pipeline from your specification, then test it on the
+fictional example. Keep the calculation in a function you can test separately.
+
+## Save the environment and settings
+
+Commit `pyproject.toml` and `uv.lock`. These record Python dependencies. A collaborator
+with uv installed can restore the locked project environment using:
 
 ```bash
-mamba env export --no-builds > environment.yml
+uv sync --locked
 ```
 
-For anything with heavy neuroimaging dependencies (fMRIPrep, FreeSurfer, FSL), use the
-container. Version-pinned containers are the only thing that makes those pipelines
-reproducible across machines and across years. Record the exact image tag, not `:latest`.
+Record the Python version too. For an existing conda or container-based project, follow
+its documented setup rather than replacing it.
 
-## Seeds
-
-Every stochastic step takes an explicit seed, set in one place:
+For random simulations or sampling, record a seed and pass it explicitly. For example:
 
 ```python
-SEED = 20260909
-rng = np.random.default_rng(SEED)
+import numpy as np
+
+rng = np.random.default_rng(20260909)
 ```
 
-Not `np.random.seed()` scattered through the code. Pass `rng` down. For MCMC, set the seed
-in the sampler call and record the sampler version — different PyMC versions can give
-different draws from identical seeds.
+A seed helps repeat a run under the same conditions. Changes in software or hardware
+can still affect numerical results.
 
-## Provenance: what produced this file
+## Record which version produced the result
 
-Cheap habit, large payoff. Have every output carry its origin:
+Small Git commits are part of the analysis cycle. See the
+[commit workflow on page 4](04-project-layout.md#git-commits-during-the-work).
 
-- write a small sidecar with each result: git commit hash, timestamp, input file hashes,
-  seed, package versions
-- or stamp the commit hash into figure metadata or a corner of the figure while drafting
-- Snakemake logs already give you much of this if you keep the `.snakemake/` directory
+For each result you intend to keep, record the code commit, input version or hashes,
+settings, seed, software versions and run command. Also record whether the code had
+uncommitted changes. A commit hash alone cannot identify those changes.
 
-The question you are protecting against is a reviewer asking, in month eleven, why table 2
-disagrees with figure 3.
+Keep this record next to the output or in a run log. Do not include participant
+information in records sent to the agent.
 
-## What an agent must never do
+## Check a clean rerun
 
-Put these in your `CLAUDE.md`:
+Ask a lab mate to follow the README from a clean checkout and environment, using the
+fictional exercise data or approved access to research inputs. A **checkout** is a local
+copy of the repository at a particular version.
 
+Can they produce the expected result without your chat history or manual instructions?
+If something is missing, fix the instructions or script and try that step again.
+A reproducible result can still be scientifically wrong; keep the verification checks
+from [page 7](07-verification.md).
+
+## Optional: automate a larger pipeline with Snakemake
+
+Once an analysis has several scripts, manual execution can become awkward. You may
+forget to rerun a figure after changing a preprocessing step. A workflow tool such as
+**Snakemake** records the dependencies and decides which steps need to run.
+
+A **Snakefile** is the text file in which you describe those steps. Each **rule** states
+the input files, output files and command for one step. Here is an illustrative rule
+for a script that already exists:
+
+```python
+rule participant_means:
+    input:
+        data="data/generated/trials.csv",
+        code="scripts/participant_means.py"
+    output:
+        "results/participant_means.csv"
+    shell:
+        "uv run python {input.code:q} --input {input.data:q} --output {output:q}"
 ```
-Do not write to data/raw/.
-Do not modify uv.lock or environment.yml without being asked.
-Do not commit. I commit.
-Do not run the full pipeline; run `snakemake -n` and show me the plan.
-Do not create data files to make a script run. If input is missing, stop and say so.
-```
 
-The last one prevents the worst failure mode there is: the agent inventing plausible data
-to get past an error, and that data ending up in a result. If it must create test data, it
-goes in `data/generated/` (page 4) and it says so.
+If the CSV or script changes, Snakemake can recognise that the output needs rebuilding.
+Other influences, such as configuration files, must also be declared.
 
-## The replication package
+With Snakemake installed, `snakemake -n` shows what it would run without running the
+analysis. `snakemake --cores 1` executes it with one CPU core available. These examples
+assume you have written the script, provided the input and created any needed output
+directories.
 
-When you submit, someone should be able to run the analysis from a clean machine. That
-means:
+The larger [starter Snakefile](../starters/Snakefile) illustrates a multi-step analysis.
+It needs project-specific scripts and configuration; it is not a runnable tutorial.
+There is no need to adopt it for the first exercise. Learn it when maintaining the
+sequence of analysis steps becomes a problem. The
+[official tutorial](https://snakemake.readthedocs.io/en/stable/tutorial/basics.html)
+walks through a working example.
 
-- [ ] `README.md` with the one command that reproduces everything
-- [ ] pinned environment (`uv.lock`, `environment.yml`, or a container tag)
-- [ ] Snakefile or Makefile covering every figure and table in the paper
-- [ ] data either included, or a script that fetches it, or a clear access statement
-- [ ] seeds set and recorded
-- [ ] tests that pass on a clean checkout
-- [ ] a note on what was AI-assisted (increasingly expected; see page 14)
+## Before sharing an analysis
 
-Before submitting, run the reproducibility audit skill from
-[Crawfurd's skill set](https://lcrawfurd.github.io/claude-skills/) against your own repo.
-Being your own Referee 2 is cheaper than the real one.
+- Document the command, environment, inputs and expected outputs.
+- Save code and specifications in Git, with small, descriptive commits.
+- Run the relevant tests and inspect the results.
+- Reproduce the analysis from the saved files in a clean environment.
+- Record AI assistance accurately; see [page 13](13-data-and-ethics.md).
 
 ---
 

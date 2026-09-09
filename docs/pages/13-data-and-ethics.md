@@ -4,39 +4,44 @@
 
 ---
 
-We work with data from people, under ethics approvals and GDPR. Agentic tools change the
-risk picture in one specific way: **an agent reads files and sends what it reads to a
-server.** That is the whole hazard, and it is easy to trigger without noticing.
+Read this before giving an agent access to research files. With a hosted model, file
+contents and command output can be sent to the provider. Running the agent's terminal
+on a university machine or GenomeDK does not itself keep those contents on that machine.
 
-This page is lab policy, not advice. If you are unsure about anything here, ask Micah
-before running the command.
+For initial practice, use schemas, fictional examples and code. For research data,
+follow the project's approved arrangements for storage, computation and model access.
+GitHub organisation membership gives repository access; it does not by itself determine
+which hosted tools may process the data. Use the agreed lab environment for the
+[internal tutorial](lab-data-tutorial.md), and keep its data and outputs private.
+If an arrangement is unclear, check with Micah before exposing participant information.
 
-## The line
+## Pseudonymisation is not permission to upload
 
-> **Personal data does not enter a context window.**
+Replacing names with study IDs does not necessarily anonymise a dataset. Data that can
+be linked back to a person remains personal data, as the
+[European Commission explains](https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/application-gdpr_en).
+Trial files, questionnaire scores and derivatives need the project's approved handling,
+even when they use study IDs.
 
-That means an agent must never read:
+Keep these out of the agent's accessible files and outputs:
 
-- name, CPR number, email, address, phone, or any direct identifier
-- date of birth, or dates precise enough to re-identify (scan dates included)
-- free-text clinical notes, interview transcripts, or open-ended questionnaire responses
-- unanonymised DICOM headers — these carry `PatientName`, `PatientBirthDate`,
-  `PatientID`, `StudyDate` and more, routinely
-- **defaced-but-not-anonymised structural MRI**: a T1 is a facial reconstruction. Treat
-  raw structurals as identifiable
-- consent forms, screening logs, recruitment spreadsheets, the participant key
+- names, CPR numbers, contact details and participant keys;
+- dates of birth, precise scan dates and identifying metadata;
+- clinical notes, interview transcripts and open-ended responses;
+- consent forms, screening logs and recruitment records;
+- DICOM headers and structural images that may identify participants.
 
-Working with pseudonymised, de-identified trial-level data is fine. That is the great
-majority of what we analyse — HRD and RRST trial files, questionnaire scores under a study
-ID, preprocessed derivatives.
+Defacing an image is one processing step; it does not establish that all associated
+files and metadata are anonymous.
 
-## Practical protections
+## Set up the working environment
 
-**Keep identifiers out of the working directory entirely.** The participant key lives
-somewhere the project directory cannot reach. Not in `data/`, not one level up, not in a
-sibling folder. An agent exploring "the project" should be physically unable to find it.
+Keep restricted files in storage the agent cannot access. A separate folder or
+`.gitignore` entry does not restrict filesystem access. Ask for help setting permissions
+or using an isolated development environment if needed.
 
-**Deny the paths in settings.** Project `.claude/settings.json`:
+Tool permissions provide another layer. For Claude Code, this is an example to adapt
+to the project's paths:
 
 ```json
 {
@@ -52,51 +57,43 @@ sibling folder. An agent exploring "the project" should be physically unable to 
 }
 ```
 
-This is a real seatbelt, not a formality, and it costs a minute. Adjust the globs to your
-project's actual layout.
+Check the [current permissions documentation](https://code.claude.com/docs/en/permissions)
+for how rules apply to each tool, including shell access. Do not treat these example
+patterns as a complete access boundary. Test the configuration with harmless dummy files.
 
-**Anonymise before the agent sees anything.** Run the de-identification step yourself,
-outside the agent session. Then let it work on the output. Do not ask an agent to
-anonymise data — you cannot verify what it read on the way through.
+## Develop with fictional examples
 
-**Grep before you hand over a file.** If you are unsure whether a spreadsheet has
-identifiers in column BF, check:
+Provide a data dictionary and a small fictional file under `data/generated/`. Include
+the relevant column types, units and missing-value conventions. Do not paste the first
+few rows of a participant file as a convenient example.
 
-```bash
-head -1 data/processed/questionnaires.csv | tr ',' '\n' | nl
-```
+Inspect candidate files yourself outside the agent session. Column names alone cannot
+establish that a file contains no identifying information. Review logs, filenames,
+tracebacks and figures as well as the data: these can expose participant information.
 
-Ten seconds, and it has caught things.
+Run approved analysis code on research data through the agreed workflow. Review any
+output before sharing it with a model. Do not ask the agent to anonymise restricted data
+by reading it first.
 
-**Be specific about scope.** "Have a look at the project and see what you find" is how an
-agent ends up reading a folder you forgot about. Point at files.
+## Record AI assistance accurately
 
-## Cluster and cloud
+Keep a note of the tools used, the tasks they assisted with, the data they could access
+and the verification you performed. Use that record when preparing the manuscript's
+disclosure, following the journal's instructions.
 
-Data governed by our approvals stays where the approval says it stays. Do not copy
-participant data to a laptop, a personal cloud drive, or a scratch directory outside the
-project to make an agent's life easier. If a workflow seems to require that, the workflow
-is wrong.
+For example, if accurate:
 
-On GenomeDK the agent runs on the cluster and reads cluster files, so all of the above
-applies identically there.
+> We used Claude Code (Anthropic) to assist with analysis code. The authors reviewed
+> the implementation and checked it using simulated data and independent calculations.
 
-## Disclosure in papers
+Only claim that no participant data entered the model if you have established that this
+is true. Do not copy a disclosure that describes checks you did not perform.
 
-Journals increasingly ask how AI tools were used. Keep a short note as you go — it is much
-harder to reconstruct later:
+## If restricted information is read
 
-> Analysis code was written with AI assistance (Claude Code, Anthropic). All code was
-> reviewed by the authors, and analyses were validated against simulated data with known
-> ground truth. No participant data was processed by the model.
-
-That last sentence should be true. This page is how it stays true.
-
-## If something does get read
-
-It happens. Tell Micah the same day. What we need to know is which file, which fields, and
-which session — not a confession. There may be a reporting obligation depending on what
-was in it, and that clock starts when we find out.
+Stop further access and tell Micah promptly, on the same day. Record which files or fields
+were involved and which session, without copying the sensitive content into another tool.
+Follow the institution's incident process; Micah can help identify the appropriate contact.
 
 ---
 

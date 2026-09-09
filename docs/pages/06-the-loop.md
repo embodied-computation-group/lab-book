@@ -4,90 +4,87 @@
 
 ---
 
-[Page 1](01-start-here.md) gave you the four steps. This page is the keystrokes.
+Use this workflow for a substantial analysis change. Practise it with the
+[first exercise](first-exercise.md) before applying it to unfamiliar methods.
 
-```
-CONTEXT    /clear · CLAUDE.md loads · @point at files · two lines on the task
-    ↓
-PLAN       Shift+Tab into Plan Mode · argue with the plan · approve
-    ↓
-EXECUTE    watch the first edits · Esc the moment it drifts
-    ↓
-REVIEW     read the diff · run tests · /clear · a fresh session checks the work
-    ↓
-           findings go into the next plan
-```
+## Context: state the question and your proposed approach
 
-## Context: start clean, point precisely
+Write down the calculation you expect before asking the agent to code. Include the
+relevant files, constraints and a way to check the result. For example:
 
-`/clear` if this is a new task. Your `CLAUDE.md` loads on its own. Then two lines and some
-`@` pointers:
-
-```
-Fit the psychometric function per subject. @src/models.py has the
-simulator; @data/processed/sub-01_clean.csv shows the format.
-Threshold and slope with CIs. Write the recovery test first.
+```text
+Fit the psychometric function defined in src/models.py.
+Use the column definitions in docs/data-schema.md and fictional
+data from data/generated/. Return threshold and slope with 95% CIs.
+Keep preprocessing unchanged. Propose a parameter-recovery test
+before implementation, and identify any missing specifications.
 ```
 
-That is enough. [Page 2](02-context.md) covers what to leave out.
+This is a starting brief. The agent may need to ask about the interval method, fitting
+bounds or missing values. Resolve those questions before approving the analysis.
 
-If you cannot yet say what you want in two lines, run `/interview` first. It asks what
-problem you are solving and why before anything gets built — [page 10](10-skills.md).
+If the task is still vague, ask: "Help me clarify the question. Ask about the inputs,
+scientific assumptions and intended output before proposing code." The optional
+`/interview` skill on [page 10](10-skills.md) supports this conversation.
 
-## Plan: never hand it a nontrivial task cold
+## Plan: check the scientific decisions
 
-Shift+Tab until you are in **Plan Mode**. The agent reads and proposes but cannot edit.
-Read the plan properly — most bad sessions were bad plans nobody read. Argue while it is
-still text:
+In Claude Code, use Shift+Tab to select Plan Mode. Read the proposed approach and check:
 
-- "No — exclusions happen before binning."
-- "Use the lab's binning function. Do not write one."
-- "Do not touch preprocessing. That is done."
+- which observations it includes and how it handles missing values;
+- units, transformations, model terms and parameter definitions;
+- existing functions it will reuse;
+- files it will change and tests it will run.
 
-A plan you have argued with is worth ten minutes of watching code appear. Approve when it
-says what you meant.
+Give concrete corrections: "Exclusions happen before binning" or "Use the existing
+confidence-binning function." Save decisions that affect the analysis in the project notes.
 
-## Execute: stay in the room for the first minute
+## Execute: inspect progress
 
-If the first two edits look wrong, the next twenty will be too. **Esc is free.**
-Interrupting after thirty seconds costs nothing; correcting after ten minutes costs the
-tokens, the dead code, and the afternoon.
+Approve the agreed task and watch the first changes. Ask the agent to commit each
+coherent step with a descriptive message and the relevant check results. Use Esc if the agent starts changing
+preprocessing, relaxing tests or expanding the scope without a reason.
 
-If you have interrupted three times on the same subtask, the task is underspecified or you
-understand it better than you can describe. Write that bit yourself and hand the rest back.
+Repeated unsuccessful attempts are a reason to reassess. Ask what each attempt established
+and whether the approach is feasible. A smaller task, a reference implementation or help
+from someone who knows the method may be more useful than another retry.
 
-## Review: the diff, the tests, then a stranger
+## Review: examine evidence
 
-1. **Read the diff.** Not the summary the agent gives you. `git diff`.
-2. **Run the tests.** If there are none, that was the first thing the plan should have had.
-3. **`/clear`, then ask a fresh session.** It has no memory of what was meant, only what
-   was done — which is exactly a reviewer's position.
+1. Inspect `git diff` and `git status`, including new files that are not yet tracked.
+2. Run the tests and read what they check. Investigate changes to expected values.
+3. Compare the result with an independent calculation, simulation or reference.
+4. Ask a fresh session to review the specification and implementation.
 
-Two framings that work:
+For example:
 
+```text
+Compare src/hrd_fit.py with docs/model-specification.md.
+Look for errors in parameterisation, units, missing-data handling
+and uncertainty estimates. Give file locations and a way to
+reproduce each finding. Do not edit files.
 ```
-Read src/hrd_fit.py. I did not write it and I do not trust it.
-What would make this produce a wrong slope estimate?
-```
 
-```
-Compare scripts/run_analysis.py against manuscript/methods.md.
-List every place they disagree. Do not summarise. List.
-```
+A fresh reviewer can find additional problems, but it can also miss errors or report
+ones that are not there. Check each finding. [Page 7](07-verification.md) explains how
+to choose stronger evidence for a scientific result.
 
-Whatever it finds goes into the next plan. That is the loop closing.
+Two terminals are useful if you want to keep the writing session available while a
+separate session reviews. Keep the reviewer read-only to avoid conflicting edits.
 
-## Two terminals
+## Finish and record what you learned
 
-The cleanest way to run this: one terminal writing, one reviewing. They share no context,
-which is the point. Anthropic's docs call it the Writer/Reviewer pattern.
+Have the agent save small commits throughout the cycle: the specification, reviewed
+tests, implementation and later improvements. A test-first commit may record expected
+failures; the implementation commit should record the passing checks.
+[Page 4](04-project-layout.md) explains how this helps with PR review and recovery.
 
-## Subagents, briefly
+Record the run command, checks and unresolved questions.
+Update project instructions when a correction will matter again. Then begin the next
+task with the relevant context.
 
-A subagent runs in its own window and returns a summary — [page 2](02-context.md) says why
-that matters. Good uses: a read-only reviewer defined in `.claude/agents/`; a searcher
-across a legacy pipeline; a figure checker. Bad use: six in parallel because you can. You
-will review six half-finished things.
+In supervision, explain one change from question to code to evidence. If you cannot
+explain a step, use that as the next learning task.
 
 ---
 

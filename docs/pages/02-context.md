@@ -1,117 +1,99 @@
-# 2. Context is king
+# 2. Working with context
 
 [← Start here](01-start-here.md) · [Contents](../index.md) · [Next: Setup →](03-setup.md)
 
 ---
 
-The context window is everything the model can see: your messages, the files it has read,
-the commands it has run and their output, its own earlier replies. It is the model's entire
-knowledge of your project. Nothing outside it exists.
+An agent uses your messages, project instructions, files it reads and command output to
+work on a task. Together these form its working context. It also has knowledge from
+training, but that is not a reliable source for facts about your project.
 
-Managing that window is the highest-leverage skill in agentic coding, and the least taught,
-because it feels like housekeeping. It is not. It is the difference between an agent that
-does what you asked and one that does what it guessed.
+Make the relevant facts easy to find: the question, data schema, relevant code and a
+description of a correct result.
 
-## Two ways to get it wrong
+## Missing information and distracting information
 
-**Too little.** A fresh session does not know your confidence scale, which subjects are
-excluded, or that `data/raw/` is read-only. Asked to "fit the model", it fits *a* model,
-plausibly and wrongly. Page 1's list of what these tools are bad at is a list of things
-they could not have known.
+Asked to "fit the model" without its definition, an agent has to make assumptions.
+A fit can run successfully while using the wrong units, exclusions or parameterisation.
 
-**Too much.** The less obvious failure. Models do not use their context uniformly: as the
-window fills, their ability to find and use what is in it *degrades*. This is measured, not
-folklore. Chroma's 2025 report tested 18 models and found performance growing less reliable
-as input length grew, even on simple tasks, and worse when the window held semantically
-similar distractors. Anthropic describes the same thing as a finite *attention budget* that
-every token spends down. Poldrack's reading of the evidence: degradation can begin on some
-benchmarks beyond a thousand tokens, and gets bad beyond a hundred thousand.
+Long context brings a different problem. Chroma's
+[*Context Rot* experiments](https://research.trychroma.com/context-rot) found that
+performance varied with input length and distractors. Keep context focused, but do not
+treat a particular length as a universal limit. Repeated mistakes may also reflect an
+unclear task, a software bug or a method the model does not understand.
 
-The symptom has a name, **context rot**, and you have seen it. An agent that followed your
-conventions for an hour starts ignoring them. It re-reads a file it read twenty minutes
-ago. It summarises instead of doing. It goes in circles on a bug. The model has not got
-worse; the window has filled with things that no longer matter, and the things that do
-matter have become hard to find.
+## What to provide
 
-The target, in Poldrack's words: *the context window should contain all of the information
-relevant to the current task, and as little as possible irrelevant information.*
+- Point to files and explain their purpose: "The binning function is in
+  `src/confidence.py`; use it rather than adding another."
+- Describe columns, units and missing-value conventions. Use a schema or fictional
+  examples, not participant rows. See [page 13](13-data-and-ethics.md).
+- Include the error and enough surrounding output to diagnose it. Keep full logs on disk
+  and ask for a targeted search if more detail is needed.
+- State what must stay fixed, such as preprocessing or preregistered model terms.
+- For notebooks, use a tool that reads cells or a text representation rather than
+  dumping JSON and embedded images into the conversation.
 
-## Why this is a reproducibility problem
+The agent may need more files to understand a dependency. Ask it to identify what else
+it needs and why.
 
-Two sessions given the same request produce different analyses if their context differs —
-one still holds the exclusion list, the other lost it under forty thousand tokens of log
-output. Same instruction, different result, and nothing in the code records why. That is a
-reproducibility failure in the most literal sense.
+## Example: specify the model, then build the pipeline
 
-An agent going in circles also *produces things*: abandoned helpers, half-finished scripts,
-files from a plan that changed midway. Each is a provenance question you will answer later.
-Clean context means fewer errors and a cleaner repo, for the same reason.
+A request such as "write a Rescorla–Wagner model" leaves the agent to supply equations
+and conventions from memory. It may choose a different variant or introduce an error.
 
-## What belongs in the window
+Instead, the scientist prepares a context file with the intended equations, initial
+values, parameter meanings, update order and a few calculations worked by hand. Ask
+the agent to turn that specification into tested functions, input handling, fitting
+code and plots.
 
-The three files that matter, not the project. A `head -5` of the data, not the data. The
-error, not the log. Two lines saying what you want and what "correct" means.
+The [example model context file](../starters/rescorla-wagner-spec.md) shows this for a
+two-option learning task. For example, it states that choice probabilities use values
+**before** the current trial's reward updates them. That timing decision is part of the
+model, not an implementation detail for the agent to guess.
 
-- **Point, do not browse.** `@src/fit.py` beats "have a look at the code". Faster, safer,
-  and nothing irrelevant comes along.
-- **Just in time, not just in case.** Give it paths; let it read what it needs when it
-  needs it. Do not pre-load everything that might be relevant.
-- **Trim outputs.** `tail -50 slurm-*.out`, `grep ERROR` — never paste four thousand lines.
-  Long outputs are the commonest way a window fills with nothing useful.
-- **Never a notebook with figures in it.** Base64 images cost enormous context and the model
-  cannot see them properly anyway ([page 9](09-notebooks-and-figures.md)).
+You can ask the agent to help draft or explain the specification, but verify it yourself
+before implementation. Good scientific context lets the agent accelerate construction
+of a pipeline you understand.
 
-## Persistent context: what survives `/clear`
+## Persistent context
 
-The window empties; files do not. Poldrack distinguishes two kinds, and each has a home:
+Put recurring instructions in `CLAUDE.md`: environment commands, directory rules, data
+definitions and known pitfalls. Keep current tasks and findings in `TASKS.md` or
+`NOTES.md`. [Page 5](05-claude-md.md) explains what belongs in each.
 
-| Kind | Holds | Lives in |
-|---|---|---|
-| **Constitution** — rules that apply everywhere | interpreter path, package manager, your general standards | `~/.claude/CLAUDE.md` |
-| **Memory** — this project's facts | data facts, layout, known traps, the current plan and task list | project `CLAUDE.md`, plus `PLAN.md` / `TASKS.md` / `NOTES.md` |
+Poldrack distinguishes general working rules ("constitution") from project facts and
+progress ("memory"). Both can live in instruction files, but separating their purposes
+helps you keep them useful. His practical advice is to compact during a problem and
+clear between problems, then reload the relevant notes.
+See [sections 5.4.3–5.4.4](https://bettercode-book.org/book-ai-coding-assistants.html).
 
-`CLAUDE.md` loads at the start of every session — the one piece of context you get free,
-every time. [Page 5](05-claude-md.md) is about writing it. The other memory files you point
-at when relevant, and you have the agent *update* them as it works, so a cleared session
-picks up where the last one stopped.
-
-## Clear, compact, or keep going
-
-| Situation | Do |
+| Situation | Useful response |
 |---|---|
-| Finished a task, starting an unrelated one | `/clear`. Always. Leftover context makes the next task worse, not better. |
-| Mid-problem, window filling | `/compact`. It summarises so far and continues — better than letting it auto-compact at the worst moment. |
-| Ignoring conventions, re-reading files, summarising instead of doing | `/clear`, restate the task in two lines, point at the files. |
-| Long work that must survive many clears | Have it keep `TASKS.md` current; reload from that. |
+| Starting an unrelated task | Save decisions, then use `/clear`. |
+| Continuing with a long conversation | Update task notes; use `/compact` to shorten the conversation. |
+| Repeating a misunderstanding | Check the brief and files, then restart with corrected information. |
+| Handing work to someone else | Record changes, checks, unresolved questions and the next step. |
 
-Poldrack's rule: clear at a breakpoint *between* problems, compact in the *middle* of one.
+Compaction may omit details. Scientific decisions belong in the project record as well
+as in the conversation: someone reproducing the analysis should not need your chat history.
 
-## Size the task to the window
+## Task size and separate sessions
 
-A task too big rots its own context before it finishes — by step nine the agent has
-forgotten step two. Too small wastes the setup. The right size is one a fresh session can
-complete, including review, without you seeing any of the symptoms above. Usually that is
-one function, one figure, one pipeline rule. A twelve-step plan is three tasks.
+Choose a task with an output you can review, such as one function or one pipeline step.
+Larger changes need intermediate checks and a record of progress.
 
-## Subagents are context isolation
+A subagent can investigate a specific question in a separate context and return findings
+with file references. A fresh review session can check code against a specification.
+Give it the requirements and test results: it still needs to know what the code should
+do, and it can share the original agent's blind spots.
 
-A subagent runs in its own window and returns a summary. That is what they are *for*:
-reading forty files to find where something is computed, without those forty files landing
-in your main session. Use them to keep the main window clean, not to parallelise for its
-own sake.
+## Try it
 
-## The reviewer needs a clean window most of all
-
-A session that wrote the code holds its own intentions in context, and reads the code as
-doing what it meant. A fresh session has only the code. That asymmetry is why *Review* in
-the loop begins with `/clear` — a reviewer sharing the writer's context is not a reviewer.
+Write a brief with four items: question, input definitions, constraints and completion
+check. Ask a lab mate which assumptions they would still have to make. Revise it before
+giving it to an agent.
 
 ---
-
-**Sources.** Poldrack, *Better Code, Better Science*,
-[ch. 5, "Coding with AI"](https://bettercode-book.org/book-ai-coding-assistants.html) ·
-Hong, Troynikov & Huber, [*Context Rot*](https://research.trychroma.com/context-rot),
-Chroma, July 2025 · Anthropic,
-[*Effective context engineering for AI agents*](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents).
 
 [← Start here](01-start-here.md) · [Contents](../index.md) · [Next: Setup →](03-setup.md)
