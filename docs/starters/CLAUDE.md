@@ -14,7 +14,7 @@ See [page 4](../pages/04-claude-md.md) for why each section is here.
 One or two sentences. What question, what data, what stage.
 
 ## Environment
-- Python: /c/Users/Micah/AppData/Local/Programs/Python/Python313/python.exe
+- Python: /c/Users/<you>/AppData/Local/Programs/Python/Python313/python.exe
   (`python` and `python3` do not resolve in Git Bash on this machine — use the full path)
 - Package manager: uv. Do not use pip or conda in this project.
 - Run tests: `uv run pytest`
@@ -39,6 +39,7 @@ One or two sentences. What question, what data, what stage.
 - Write the test first, with simulated data where the true parameters are known.
 
 ## Data facts you cannot infer
+<!-- FICTIONAL EXAMPLES. Replace all of these with your own project's real facts. -->
 <!-- This section prevents wrong-but-plausible results. Be specific. -->
 - Confidence scale is 1-100 (continuous VAS), NOT 1-4.
 - Subjects 07, 14, 22 are excluded: incomplete sessions. See NOTES.md.
@@ -48,7 +49,7 @@ One or two sentences. What question, what data, what stage.
 - Missing values are coded -999, not NaN.
 
 ## Known traps
-<!-- Add a line every time you lose an afternoon to something. -->
+<!-- FICTIONAL EXAMPLES. Add a line every time you lose an afternoon to something. -->
 - arviz >= 0.18 changed the default HDI probability; we report 94%, set it explicitly.
 - The 2024 scanner upgrade changed slice timing. Sessions before 2024-06 need the old
   timing file.

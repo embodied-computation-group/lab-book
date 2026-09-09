@@ -4,14 +4,19 @@ Internal handbook for the Embodied Computation Group. **Part I — Agentic codin
 reproducible science**: how to use Claude Code and similar tools on real analyses without
 quietly destroying the reproducibility of your results.
 
-Fourteen short pages plus copyable starter files. Private repo, internal use.
+Fourteen short pages plus copyable starter files. Written for our lab; public because
+most of it is generally useful and none of it is secret.
 
 ## Read it
 
-**On GitHub** — start at **[docs/index.md](docs/index.md)** and click through. Every page
-has prev/next links, so it pages like a book.
+### → **<https://www.the-ecg.org/lab-book/>**
 
-**As a proper site**, with a sidebar, dark mode, and full-text search — one command, no
+Sidebar nav, full-text search, dark mode. Rebuilt automatically on every push to `main`.
+
+**On GitHub** — start at **[docs/index.md](docs/index.md)** and click through. Every page
+has prev/next links, so it pages like a book either way.
+
+**Locally**, if you are editing it — one command, no
 install, no hosting:
 
 ```bash
@@ -24,19 +29,20 @@ search it when you are looking for one specific thing.
 To build static HTML instead: `uvx --with mkdocs-material mkdocs build` → `site/`
 (gitignored).
 
-## Why it is not a hosted site
+## What does not go in here
 
-GitHub Pages is **not available for private repos on the org's current free plan** —
-verified, the API refuses with *"Your current plan does not support GitHub Pages for this
-repository."* Wikis are unavailable on private repos on this plan too.
+The repo is public, so:
 
-Upgrading to Team would not fix it: Pages published from a private repo is a **public**
-site, and access-controlled private Pages is Enterprise Cloud only. Since this book
-contains cluster paths, account names, and data-handling policy, publishing it is not the
-answer.
+- no credentials of any kind — tokens, keys, passwords, `.env` contents
+- no participant data or identifiers, including **real** exclusion lists and subject IDs
+- no unpublished results, or specifics of a design that is not out yet
+- nothing from a collaborator's project that is not ours to publish
 
-If we want a real internal URL, the route is a private host — Cloudflare Pages behind
-Cloudflare Access is free at our size. Ask Micah.
+Example data in `docs/starters/` is fictional and labelled as such. Cluster paths and
+account names are fine — they are not secrets, and they are the specifics that make the
+cluster pages worth reading.
+
+Full guidance in [Contributing](docs/pages/14-contributing.md).
 
 ## Layout
 

@@ -1,6 +1,6 @@
 site_name: ECG Lab Book
 site_description: Internal handbook for the Embodied Computation Group
-site_url: ""
+site_url: https://www.the-ecg.org/lab-book/
 
 # Book content lives in docs/. Every internal link is relative (pages/05-the-loop.md,
 # ../index.md), so the same links work in this rendered site AND when browsing the raw

@@ -43,7 +43,7 @@ Ask Micah before buying anything — the lab may already have seats.
 Python 3.13 on the lab Windows machines lives at:
 
 ```
-/c/Users/Micah/AppData/Local/Programs/Python/Python313/python.exe
+/c/Users/<you>/AppData/Local/Programs/Python/Python313/python.exe
 ```
 
 `python` and `python3` do not resolve correctly in Git Bash on these machines, so use the

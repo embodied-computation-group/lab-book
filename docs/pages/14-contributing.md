@@ -64,10 +64,24 @@ Fine, and slightly recursive. Two rules:
   drops tasks above roughly 20 launches per minute" into "be mindful of rate limits". The
   specifics are the entire value.
 
-## Why it is private
+## This repo is public
 
-It has our account names, cluster paths, and internal policy in it. If a page turns out to
-be generally useful, we can extract and publish it — say so in the PR and we will.
+Deliberately. Most of what is in here is generally useful, few labs write it down, and our
+cluster paths and account names are not secrets.
+
+So the bar for adding something is: **would I mind a stranger reading this?** Almost always
+no. What must never go in:
+
+- credentials of any kind — tokens, keys, passwords, `.env` contents
+- participant data or identifiers, including **real** exclusion lists and subject IDs
+- unpublished results, or the specifics of a design that is not out yet
+- anything from a collaborator's project that is not ours to publish
+
+Example data in the starter files is fictional and labelled as such. Keep it that way —
+invented subject exclusions read as real ones to someone skimming.
+
+If something fails that bar, it belongs in the project's own private repo or in a
+gitignored `NOTES.md`, not here.
 
 ---
 
