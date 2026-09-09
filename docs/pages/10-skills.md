@@ -4,9 +4,70 @@
 
 ---
 
-Skills are optional. Start with ordinary prompts and a short project instruction file.
-A skill becomes useful when you want an agent to follow the same procedure across
-several tasks or projects.
+## Doing the same thing again? Make it a skill
+
+If you keep explaining the same procedure to an agent, that procedure is a good candidate
+for a skill. You might repeatedly import papers, prepare cluster jobs, generate an
+illustration or clarify an analysis before coding. Save the useful instructions once,
+then reuse them in the next session.
+
+Skills also help manage context. A successful session often contains a useful procedure
+mixed with false starts, temporary paths and details of one particular task. Turn that
+experience into a short, checked set of instructions: what to do, what information is
+needed and how to check the output. The next session can load that context without
+replaying the whole conversation.
+
+This is what we mean by sanitised, reusable context: remove irrelevant history and
+sensitive details, replace one-off values with inputs, and preserve the lessons that
+matter. Packaging instructions as a skill does not clean them automatically.
+
+Start with ordinary prompts. Once a workflow is useful enough to repeat, make it easier
+to reuse.
+
+## Skills Micah uses almost every day
+
+These examples come from Micah's working setup. Check the lab repository or your installed
+skills for availability; these names are not all built-in Claude Code commands.
+
+| Skill | What it does | Context you no longer need to rebuild each time |
+|---|---|---|
+| `/interview` | Helps clarify a task before implementation. | A sequence of questions about the goal, constraints, assumptions and desired outcome. |
+| `/nano-banana` | Generates images through the Gemini API from within Claude Code. | The procedure for calling the image service and handling the generated files. |
+| `/opendataloader` | Converts PDFs to Markdown for use as context. | A repeatable way to extract paper text into files the agent can read and refer back to. |
+| `/genomedk` | Helps agents use the cluster efficiently. | Local submission conventions, resource choices, monitoring and output checks. |
+
+For example:
+
+```text
+/interview
+I want to explore confidence and accuracy in this task, but I am not
+sure how to frame the analysis. Help me clarify the question before coding.
+```
+
+```text
+/opendataloader
+Convert this public methods paper to Markdown and save it in references/.
+Keep a reference to the original PDF and flag equations or tables that
+need checking against it. We will use the extracted text as model context.
+```
+
+Keeping an extracted paper in a file makes it easier to load relevant sections in later
+sessions. Check important equations and tables against the PDF; conversion can introduce
+errors or lose structure.
+
+```text
+/nano-banana
+Create an illustration explaining the context, plan, execute and review
+cycle for a lab presentation. Use simple labels and save the image so
+we can inspect and revise it.
+```
+
+```text
+/genomedk
+Read the analysis plan and prepare a suitable cluster job.
+Explain the resource request and how we will check one task before
+running the full batch.
+```
 
 ## What a skill contains
 
@@ -27,7 +88,7 @@ installation; see the [skills documentation](https://code.claude.com/docs/en/ski
 The description helps the agent decide when to load the procedure. Keep general project
 facts in `CLAUDE.md` and longer task-specific instructions in the skill.
 
-## Why use one?
+## Keep the procedure easy to update
 
 A cluster submission procedure can record account settings, output checks and known
 failure cases. This gives the agent a concrete starting point instead of having to
@@ -52,21 +113,26 @@ The repository is maintained separately from this book.
 Use a modelling skill alongside a scientist-checked model specification. It does not
 replace the equations or your choice of analysis.
 
-Micah's `interview` procedure helps clarify an underspecified task. Check whether it is
-available in your installation. You can get started without it:
+## Turn a working session into a skill
+
+After a useful session, ask the agent to extract the repeatable procedure:
 
 ```text
-Help me clarify this analysis before writing code.
-Ask about the scientific question, inputs, assumptions and intended outputs.
+We have now done this workflow several times. Draft a reusable skill
+from the procedure that worked.
+Describe when to use it, the inputs it needs, the steps and output checks.
+Replace task-specific filenames and settings with explicit inputs.
+Remove failed attempts, private data and credentials from the instructions.
+Keep useful failure symptoms and their verified fixes.
+Put longer reference material in separate files, loaded when relevant.
+Show me the draft and identify anything that needs my judgement.
 ```
-
-## Write a skill when you need it
-
-Save a procedure when you expect to repeat it. Describe when it applies, the steps,
-what to check and what to do when a step fails. Include a concrete failure example.
 
 Try it on a small case before sharing it. Commit the source with a description of the
 change, and use the lab repository's contribution instructions for any generated copies.
+Try a different input as well: a reusable procedure should not depend on hidden facts
+from the conversation that created it. When you improve the workflow, update the skill
+so the next session benefits.
 
 External collections, such as
 [Crawfurd's academic research skills](https://lcrawfurd.github.io/claude-skills/),

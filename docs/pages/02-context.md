@@ -78,6 +78,11 @@ See [sections 5.4.3–5.4.4](https://bettercode-book.org/book-ai-coding-assistan
 Compaction may omit details. Scientific decisions belong in the project record as well
 as in the conversation: someone reproducing the analysis should not need your chat history.
 
+When you repeat a task across sessions, consider turning the procedure into a
+[skill](10-skills.md). This preserves the useful instructions without carrying forward
+the whole conversation. PDF-to-Markdown import, for example, can leave a reusable source
+file that later sessions read in relevant sections.
+
 ## Task size and separate sessions
 
 Choose a task with an output you can review, such as one function or one pipeline step.
