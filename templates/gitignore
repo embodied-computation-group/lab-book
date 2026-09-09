@@ -1,0 +1,77 @@
+# Research project .gitignore
+# Copy to your project as `.gitignore`. See ../pages/03-project-layout.md.
+
+# --- Data: never in git ---
+data/raw/
+data/processed/
+data/generated/
+*.nii
+*.nii.gz
+*.dcm
+*.edf
+*.bdf
+*.fif
+*.nc
+*.h5
+*.mat
+*.pkl
+
+# Keep the directory structure, though, so a fresh clone has somewhere to put things.
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/generated/.gitkeep
+
+# --- Anything identifiable, belt and braces (see ../pages/11-data-and-ethics.md) ---
+*participant_key*
+*consent*
+*identifiable*
+*_PII*
+screening/
+recruitment/
+
+# --- Results: regenerate them, do not version them ---
+results/
+scratch/
+logs/
+.snakemake/
+
+# Except final figures if you want them tracked — uncomment if so:
+# !results/figures/*.pdf
+
+# --- Environments ---
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# uv.lock IS committed. Do not add it here.
+
+# --- Notebooks ---
+# .ipynb outputs bloat diffs; prefer .qmd or marimo (../pages/08-notebooks-and-figures.md).
+*.ipynb
+
+# --- Editor / OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+
+# --- Secrets ---
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+token.json
+
+# --- Claude Code ---
+# CLAUDE.md IS committed — it is lab knowledge (../pages/04-claude-md.md).
+# Local settings and session state are not.
+.claude/settings.local.json
+.claude/history/

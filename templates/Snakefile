@@ -1,0 +1,117 @@
+# Minimal Snakemake skeleton for a lab analysis.
+#
+# Why this exists: it is the dependency graph between the agent and your outputs.
+# Without it you cannot tell which results are current, which are stale, and which
+# code produced any of them. See pages/07-reproducibility.md.
+#
+#   snakemake -n                 dry run: what would rebuild, and why
+#   snakemake --cores 4 all      reproduce everything
+#   snakemake --dag | dot -Tsvg > dag.svg
+#
+# Rule for the lab: if a figure in a paper was not produced by a rule in here,
+# it does not go in the paper.
+
+import os
+
+configfile: "config.yaml"
+
+SUBJECTS = config["subjects"]          # e.g. ["01", "02", "03"]
+SEED     = config["seed"]              # one seed, one place
+PY       = config["python"]            # full interpreter path
+
+
+rule all:
+    input:
+        "results/figures/fig1_thresholds.pdf",
+        "results/figures/fig2_metacognition.pdf",
+        "results/tables/table1_descriptives.csv",
+
+
+# ---------------------------------------------------------------------------
+# Per-subject preprocessing. raw -> processed. Never writes to data/raw/.
+# ---------------------------------------------------------------------------
+rule preprocess:
+    input:
+        raw="data/raw/sub-{subject}/behaviour.csv",
+    output:
+        clean="data/processed/sub-{subject}_clean.csv",
+    log:
+        "logs/preprocess_{subject}.log",
+    shell:
+        "{PY} scripts/preprocess.py "
+        "--input {input.raw} --output {output.clean} 2> {log}"
+
+
+# ---------------------------------------------------------------------------
+# Per-subject model fit. Parallelises across subjects for free.
+# ---------------------------------------------------------------------------
+rule fit_subject:
+    input:
+        clean="data/processed/sub-{subject}_clean.csv",
+    output:
+        fit="data/processed/sub-{subject}_fit.nc",
+    params:
+        seed=SEED,
+    log:
+        "logs/fit_{subject}.log",
+    shell:
+        "{PY} scripts/fit_subject.py "
+        "--input {input.clean} --output {output.fit} "
+        "--seed {params.seed} 2> {log}"
+
+
+rule aggregate:
+    input:
+        fits=expand("data/processed/sub-{subject}_fit.nc", subject=SUBJECTS),
+    output:
+        group="data/processed/group_estimates.csv",
+    log:
+        "logs/aggregate.log",
+    shell:
+        "{PY} scripts/aggregate.py --inputs {input.fits} --output {output.group} 2> {log}"
+
+
+# ---------------------------------------------------------------------------
+# Outputs. Every figure and table in the paper is a rule.
+# ---------------------------------------------------------------------------
+rule figures:
+    input:
+        group="data/processed/group_estimates.csv",
+    output:
+        fig1="results/figures/fig1_thresholds.pdf",
+        fig2="results/figures/fig2_metacognition.pdf",
+    log:
+        "logs/figures.log",
+    shell:
+        "{PY} scripts/make_figures.py --input {input.group} "
+        "--fig1 {output.fig1} --fig2 {output.fig2} 2> {log}"
+
+
+rule tables:
+    input:
+        group="data/processed/group_estimates.csv",
+    output:
+        t1="results/tables/table1_descriptives.csv",
+    log:
+        "logs/tables.log",
+    shell:
+        "{PY} scripts/make_tables.py --input {input.group} --output {output.t1} 2> {log}"
+
+
+# ---------------------------------------------------------------------------
+# Provenance stamp. Run before submission; commit the output alongside results.
+# ---------------------------------------------------------------------------
+rule provenance:
+    output:
+        "results/provenance.txt",
+    shell:
+        """
+        {{
+          echo "commit: $(git rev-parse HEAD)"
+          echo "dirty:  $(git status --porcelain | wc -l) uncommitted files"
+          echo "date:   $(date -Iseconds)"
+          echo "seed:   {SEED}"
+          echo "--- packages ---"
+          uv pip freeze
+        }} > {output}
+        """
