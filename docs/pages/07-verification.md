@@ -1,6 +1,6 @@
-# 6. Verification
+# 7. Verification
 
-[← The loop](05-the-loop.md) · [Contents](../index.md) · [Next: Reproducibility →](07-reproducibility.md)
+[← The loop](06-the-loop.md) · [Contents](../index.md) · [Next: Reproducibility →](08-reproducibility.md)
 
 ---
 
@@ -78,7 +78,7 @@ For anything going into a paper:
 - **Do one subject entirely by hand.** Take subject 3, their raw trial file, and a
   calculator; compare to the pipeline output. Tedious, and it catches indexing bugs that
   survive everything else.
-- **Ask a fresh session to find the bug** (page 5). Different framing, different blind
+- **Ask a fresh session to find the bug** (page 6). Different framing, different blind
   spots.
 
 ## 6. Check the code against the methods section
@@ -110,4 +110,4 @@ number".
 
 ---
 
-[← The loop](05-the-loop.md) · [Contents](../index.md) · [Next: Reproducibility →](07-reproducibility.md)
+[← The loop](06-the-loop.md) · [Contents](../index.md) · [Next: Reproducibility →](08-reproducibility.md)

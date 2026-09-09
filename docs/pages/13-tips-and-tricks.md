@@ -1,22 +1,16 @@
-# 12. Tips and tricks
+# 13. Tips and tricks
 
-[← Human-subject data](11-data-and-ethics.md) · [Contents](../index.md) · [Next: Resources →](13-resources.md)
+[← Human-subject data](12-data-and-ethics.md) · [Contents](../index.md) · [Next: Resources →](14-resources.md)
 
 ---
 
 Grab bag. Add yours.
 
-## Context hygiene
+## Context
 
-- **`/clear` is underused.** A stale context is worse than an empty one. Between tasks,
-  clear it. It costs you nothing except re-stating the task in one line.
-- **The signal that you should have cleared already:** it re-reads files it read twenty
-  minutes ago, forgets a convention it followed earlier, or starts summarising instead of
-  doing. Clear and restate.
-- **`@file` beats "look around".** Pointing at three files is faster and safer than letting
-  it explore, and it keeps a lot of junk out of the window.
-- **Long outputs are context poison.** Do not paste a 4000-line log. Save it and point at
-  it, or `grep` it first — `tail -50 slurm-*.out` answers most questions.
+Has its own page: [page 2](02-context.md). The two-line version: `/clear` between tasks,
+`@point` at files rather than letting it browse, and never paste a long log —
+`tail -50 slurm-*.out` answers most questions.
 
 ## Prompting that works for analysis
 
@@ -39,14 +33,14 @@ Grab bag. Add yours.
 |---|---|
 | **Writer / Reviewer** | Two terminals. One writes, the other reviews with a clean context. The reviewer catches things the writer structurally cannot. |
 | **Test first** | Ask for the test and the simulator before the implementation. Better brief, and the code cannot be tuned to a test that already passes. |
-| **Plan, one, all** | Plan it, run one case, verify the output has real content, then run everything. Essential on the cluster (page 10). |
+| **Plan, one, all** | Plan it, run one case, verify the output has real content, then run everything. Essential on the cluster (page 11). |
 | **Methods diff** | Point it at your methods section and your pipeline, ask for discrepancies. Before every submission. |
 | **Explain this legacy script** | Best-value use of an agent on an inherited project, and it costs nothing. |
 
 ## Skills and slash commands
 
 If you have explained the same procedure twice, make it a skill. `~/.claude/skills/<name>/SKILL.md`,
-description in the frontmatter, and it loads on demand — see page 10 for how the lab uses
+description in the frontmatter, and it loads on demand — see page 11 for how the lab uses
 this for GenomeDK. `/skill-creator` writes them for you.
 
 Worth installing from outside the lab:
@@ -67,7 +61,7 @@ MCP servers give the agent tools beyond your filesystem. Configured ones worth k
   literature pass over a stack of PDFs.
 - **Gmail / Calendar / Drive** — admin work, not analysis.
 
-Do not point an MCP server at anything containing participant data (page 11).
+Do not point an MCP server at anything containing participant data (page 12).
 
 ## Small things that save time
 
@@ -93,4 +87,4 @@ Do not point an MCP server at anything containing participant data (page 11).
 
 ---
 
-[← Human-subject data](11-data-and-ethics.md) · [Contents](../index.md) · [Next: Resources →](13-resources.md)
+[← Human-subject data](12-data-and-ethics.md) · [Contents](../index.md) · [Next: Resources →](14-resources.md)

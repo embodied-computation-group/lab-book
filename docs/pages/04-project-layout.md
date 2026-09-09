@@ -1,6 +1,6 @@
-# 3. Project layout
+# 4. Project layout
 
-[← Setup](02-setup.md) · [Contents](../index.md) · [Next: Writing a CLAUDE.md →](04-claude-md.md)
+[← Setup](03-setup.md) · [Contents](../index.md) · [Next: Writing a CLAUDE.md →](05-claude-md.md)
 
 ---
 
@@ -9,18 +9,18 @@ your `CLAUDE.md`.
 
 ```
 project/
-├── CLAUDE.md              # rules for the agent (page 4)
+├── CLAUDE.md              # rules for the agent (page 5)
 ├── README.md              # what this is, how to run it
 ├── pyproject.toml         # deps, pinned
 ├── uv.lock                # committed
-├── Snakefile              # the pipeline (page 7)
+├── Snakefile              # the pipeline (page 8)
 ├── data/
 │   ├── raw/               # READ-ONLY. Never written to. Never by an agent.
 │   ├── processed/         # derived from raw by code in src/
 │   └── generated/         # anything an AI produced. Quarantine.
 ├── src/                   # importable, tested functions
 ├── scripts/               # thin entry points that call src/
-├── notebooks/             # .qmd or .py, not .ipynb (page 8)
+├── notebooks/             # .qmd or .py, not .ipynb (page 9)
 ├── results/
 │   ├── figures/
 │   └── tables/
@@ -83,4 +83,4 @@ data use the lab's usual channels; for versioning large derived files, ask befor
 
 ---
 
-[← Setup](02-setup.md) · [Contents](../index.md) · [Next: Writing a CLAUDE.md →](04-claude-md.md)
+[← Setup](03-setup.md) · [Contents](../index.md) · [Next: Writing a CLAUDE.md →](05-claude-md.md)

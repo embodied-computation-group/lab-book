@@ -1,6 +1,6 @@
-# 2. Setup
+# 3. Setup
 
-[← Start here](01-start-here.md) · [Contents](../index.md) · [Next: Project layout →](03-project-layout.md)
+[← Context is king](02-context.md) · [Contents](../index.md) · [Next: Project layout →](04-project-layout.md)
 
 ---
 
@@ -47,7 +47,7 @@ Python 3.13 on the lab Windows machines lives at:
 ```
 
 `python` and `python3` do not resolve correctly in Git Bash on these machines, so use the
-full path, and tell the agent to as well — put it in your `CLAUDE.md` (page 4).
+full path, and tell the agent to as well — put it in your `CLAUDE.md` (page 5).
 
 Use `uv` for project environments. It is fast, it writes a lockfile, and a lockfile is the
 difference between a reproducible environment and a hopeful one:
@@ -82,4 +82,4 @@ pick, say so in `CLAUDE.md` — otherwise the agent will guess, and it guesses `
 
 ---
 
-[← Start here](01-start-here.md) · [Contents](../index.md) · [Next: Project layout →](03-project-layout.md)
+[← Context is king](02-context.md) · [Contents](../index.md) · [Next: Project layout →](04-project-layout.md)

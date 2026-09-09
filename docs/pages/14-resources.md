@@ -1,6 +1,6 @@
-# 13. Resources
+# 14. Resources
 
-[← Tips and tricks](12-tips-and-tricks.md) · [Contents](../index.md) · [Next: Contributing →](14-contributing.md)
+[← Tips and tricks](13-tips-and-tricks.md) · [Contents](../index.md) · [Next: Contributing →](15-contributing.md)
 
 ---
 
@@ -28,8 +28,9 @@ the one to send to a new student in week one.
 ## The best practitioner write-up
 
 **[Claude Code for Scientists](https://www.neuroai.science/p/claude-code-for-scientists)** —
-Patrick Mineault. Much of pages 3, 5 and 8 of this book comes from here: the
-Plan–Execute–Evaluate loop, the `data/generated/` quarantine, the argument for dropping
+Patrick Mineault. Much of pages 4, 6 and 9 of this book comes from here: the
+Plan–Execute–Evaluate loop our Context → Plan → Execute → Review is built on, the
+`data/generated/` quarantine, the argument for dropping
 `.ipynb`, and the observation that code is generated faster than it can be verified. Also
 the warning worth repeating to supervisors: junior researchers often lack the metacognition
 to notice when an agent is wrong.
@@ -38,6 +39,24 @@ to notice when an agent is wrong.
 agents entirely, and is still the best short introduction to structuring a research
 codebase. Everything in it got *more* important, not less. His
 `true-neutral-cookiecutter` template on GitHub is a reasonable project skeleton.
+
+## On context management
+
+The evidence behind [page 2](02-context.md):
+
+- **[Poldrack, *Better Code, Better Science*, ch. 5](https://bettercode-book.org/book-ai-coding-assistants.html)** —
+  the chapter on AI coding assistants. Context rot, the constitution/memory-file
+  distinction, clear-versus-compact, task sizing. The clearest single treatment written
+  for scientists.
+- **[Hong, Troynikov & Huber, *Context Rot*](https://research.trychroma.com/context-rot)** —
+  Chroma technical report, July 2025. Eighteen models, including Claude 4, GPT-4.1 and
+  Gemini 2.5: performance grows less reliable as input length grows, even on simple tasks,
+  and semantically similar distractors make it worse. The measurement behind the folklore.
+  Replication toolkit on [GitHub](https://github.com/chroma-core/context-rot).
+- **[Anthropic, *Effective context engineering for AI agents*](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)** —
+  the "attention budget" framing, just-in-time retrieval, compaction, structured
+  note-taking, and sub-agents as context isolation. Written for people building agents,
+  but every practice maps onto using one.
 
 ## Official Anthropic material
 
@@ -52,7 +71,7 @@ codebase. Everything in it got *more* important, not less. His
 - **[How Claude Code is used in practice](https://www.anthropic.com/research/claude-code-expertise)** —
   Anthropic's own usage research. Useful for calibrating what to delegate.
 - **[Claude Team plan for scientists](https://claude.com/programs/team-plan-for-scientists)** —
-  the seat programme. Numbers on page 2.
+  the seat programme. Numbers on page 3.
 
 ## Installable tooling
 
@@ -94,10 +113,10 @@ stealing into your own Snakefile regardless.
 
 - **[RainCloudPlots](https://github.com/RainCloudPlots/RainCloudPlots)** — ours. If an agent
   starts reinventing a raincloud, stop it and point it here.
-- **`genomedk` skill** — page 10.
+- **`genomedk` skill** — page 11.
 - **`interoception-hierarchical-models` skill** — HRD and RRST psychophysics and meta-d′.
   Use it instead of asking an agent to write a meta-d′ model from scratch.
 
 ---
 
-[← Tips and tricks](12-tips-and-tricks.md) · [Contents](../index.md) · [Next: Contributing →](14-contributing.md)
+[← Tips and tricks](13-tips-and-tricks.md) · [Contents](../index.md) · [Next: Contributing →](15-contributing.md)

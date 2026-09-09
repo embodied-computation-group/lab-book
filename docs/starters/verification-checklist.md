@@ -1,7 +1,7 @@
 # Verification checklist
 
 Run through this before you believe a result, and definitely before it goes in a
-manuscript. Full reasoning on [page 6](../pages/06-verification.md).
+manuscript. Full reasoning on [page 7](../pages/07-verification.md).
 
 Copy into your project as `VERIFICATION.md` and tick as you go — a filled-in copy is also
 a useful thing to show a supervisor or attach to a replication package.

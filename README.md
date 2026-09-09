@@ -1,10 +1,11 @@
-# ECG Lab Book
+# Agents in the Lab
 
-Internal handbook for the Embodied Computation Group. **Part I — Agentic coding for
-reproducible science**: how to use Claude Code and similar tools on real analyses without
-quietly destroying the reproducibility of your results.
+**Claude Code for reproducible science.** A handbook from the Embodied Computation Group for
+PhD students and postdocs using agentic coding tools on real analyses — built around one
+loop, **Context → Plan → Execute → Review**, and the rule that code is now generated faster
+than it can be verified.
 
-Fourteen short pages plus copyable starter files. Written for our lab; public because
+Fifteen short pages plus copyable starter files. Written for our lab; public because
 most of it is generally useful and none of it is secret.
 
 ## Read it
@@ -42,29 +43,31 @@ Example data in `docs/starters/` is fictional and labelled as such. Cluster path
 account names are fine — they are not secrets, and they are the specifics that make the
 cluster pages worth reading.
 
-Full guidance in [Contributing](docs/pages/14-contributing.md).
+Full guidance in [Contributing](docs/pages/15-contributing.md).
 
 ## Layout
 
 ```
 docs/
 ├── index.md        # the book's cover and contents table
-├── pages/          # 01–14, one idea per page
+├── pages/          # 01–15, one idea per page
 └── starters/       # copyable: CLAUDE.md, Snakefile, gitignore, checklists
 mkdocs.yml          # site config; nav lives here
 ```
 
 Links are all relative, so they work both in the rendered site and when browsing raw `.md`
-on GitHub. Keep it that way — see [Contributing](docs/pages/14-contributing.md).
+on GitHub. Keep it that way — see [Contributing](docs/pages/15-contributing.md).
 
 ## The short version
 
-1. **Code is generated faster than it can be verified.** Verification is the bottleneck
-   now, not writing.
-2. **Put an orchestrator between the agent and your outputs** so you know which code
-   produced which file.
-3. **Generated data never touches `data/raw/` or `data/processed/`.**
-4. **Review in a fresh session.** A context that just wrote the code is a bad judge of it.
-5. **Never compute on the GenomeDK frontend.** An agent asked to "test the script" will run
+1. **Context first.** The agent knows only what is in the window. Too little and it
+   guesses; too much and it forgets. Point at files; `/clear` between tasks.
+2. **Plan before code.** Plan Mode, and argue with the plan while it is still text.
+3. **Code is generated faster than it can be verified.** Review is the job now.
+4. **Review in a fresh session.** A context that wrote the code is a bad judge of it.
+5. **An orchestrator between the agent and your outputs**, so you know which code produced
+   which file.
+6. **Generated data never touches `data/raw/` or `data/processed/`.**
+7. **Never compute on the GenomeDK frontend.** An agent asked to "test the script" will run
    the script.
-6. **No participant data in a context window.** Ever.
+8. **No participant data in a context window.** Ever.

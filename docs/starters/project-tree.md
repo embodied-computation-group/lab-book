@@ -1,6 +1,6 @@
 # Standard project layout
 
-The lab default. Reasoning on [page 3](../pages/03-project-layout.md).
+The lab default. Reasoning on [page 4](../pages/04-project-layout.md).
 
 ```
 project/
@@ -14,7 +14,7 @@ project/
 ├── Snakefile                  # the pipeline — every figure and table is a rule
 ├── .gitignore
 ├── .claude/
-│   ├── settings.json          # permission denies for sensitive paths (page 11)
+│   ├── settings.json          # permission denies for sensitive paths (page 12)
 │   └── agents/                # project-specific subagents, e.g. a read-only reviewer
 ├── data/
 │   ├── raw/                   # READ-ONLY. chmod a-w. Never written by anything.

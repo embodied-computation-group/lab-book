@@ -1,10 +1,10 @@
-# 10. Driving the cluster with the `genomedk` skill
+# 11. Driving the cluster with the `genomedk` skill
 
-[← Cluster work](09-hpc.md) · [Contents](../index.md) · [Next: Human-subject data →](11-data-and-ethics.md)
+[← Cluster work](10-hpc.md) · [Contents](../index.md) · [Next: Human-subject data →](12-data-and-ethics.md)
 
 ---
 
-Page 9 is the rules. This page is the tooling: the lab keeps its GenomeDK knowledge in a
+Page 10 is the rules. This page is the tooling: the lab keeps its GenomeDK knowledge in a
 **skill**, so you do not have to remember any of it and neither does the agent.
 
 ## What a skill is
@@ -72,18 +72,18 @@ and size, and confirm it contains fitted parameters.
 ```
 
 Only then the full array. This sequence — plan, one task, verify content, full submit — is
-the whole discipline of cluster work, and it maps directly onto page 5.
+the whole discipline of cluster work, and it maps directly onto page 6.
 
 ## Things to still do yourself
 
 The skill removes the recall burden, not the judgement:
 
 - **`--time` sizing.** You know how long your model takes. Size for the worst case
-  (page 9), because the jobs a walltime kills are the slow-converging ones and losing them
+  (page 10), because the jobs a walltime kills are the slow-converging ones and losing them
   biases your sample.
 - **Deciding a run is finished.** Ask for the count of output files containing real
   results. Never accept "the array completed".
-- **Anything touching participant data.** Page 11 applies on the cluster exactly as it does
+- **Anything touching participant data.** Page 12 applies on the cluster exactly as it does
   locally.
 
 ## Adding to the skill
@@ -129,4 +129,4 @@ Run `/help` to see what is currently installed.
 
 ---
 
-[← Cluster work](09-hpc.md) · [Contents](../index.md) · [Next: Human-subject data →](11-data-and-ethics.md)
+[← Cluster work](10-hpc.md) · [Contents](../index.md) · [Next: Human-subject data →](12-data-and-ethics.md)

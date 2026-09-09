@@ -1,6 +1,6 @@
-# 9. Cluster work
+# 10. Cluster work
 
-[← Notebooks and figures](08-notebooks-and-figures.md) · [Contents](../index.md) · [Next: Driving the cluster with the genomedk skill →](10-genomedk-skill.md)
+[← Notebooks and figures](09-notebooks-and-figures.md) · [Contents](../index.md) · [Next: Driving the cluster with the genomedk skill →](11-genomedk-skill.md)
 
 ---
 
@@ -99,7 +99,7 @@ setsid nohup <cmd> > out.log 2>&1 < /dev/null & disown
 
 ## Verify by content, never by exit code
 
-The cluster-specific version of page 6, and the failure mode agents fall for hardest:
+The cluster-specific version of page 7, and the failure mode agents fall for hardest:
 
 > **Check the number of output files that actually contain results. Not SLURM's COMPLETED
 > count.**
@@ -146,4 +146,4 @@ Lab specifics, so nobody rediscovers them:
 
 ---
 
-[← Notebooks and figures](08-notebooks-and-figures.md) · [Contents](../index.md) · [Next: Driving the cluster with the genomedk skill →](10-genomedk-skill.md)
+[← Notebooks and figures](09-notebooks-and-figures.md) · [Contents](../index.md) · [Next: Driving the cluster with the genomedk skill →](11-genomedk-skill.md)

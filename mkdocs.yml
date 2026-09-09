@@ -1,8 +1,8 @@
-site_name: ECG Lab Book
-site_description: Internal handbook for the Embodied Computation Group
+site_name: Agents in the Lab
+site_description: Claude Code for reproducible science — a handbook from the Embodied Computation Group
 site_url: https://www.the-ecg.org/lab-book/
 
-# Book content lives in docs/. Every internal link is relative (pages/05-the-loop.md,
+# Book content lives in docs/. Every internal link is relative (pages/06-the-loop.md,
 # ../index.md), so the same links work in this rendered site AND when browsing the raw
 # .md files on GitHub. Keep it that way: no absolute paths, no site-only link syntax.
 docs_dir: docs
@@ -73,24 +73,26 @@ plugins:
 
 nav:
   - Home: index.md
-  - Getting going:
+  - Foundations:
       - 1. Start here: pages/01-start-here.md
-      - 2. Setup: pages/02-setup.md
-      - 3. Project layout: pages/03-project-layout.md
-      - 4. Writing a CLAUDE.md: pages/04-claude-md.md
+      - 2. Context is king: pages/02-context.md
+  - Getting going:
+      - 3. Setup: pages/03-setup.md
+      - 4. Project layout: pages/04-project-layout.md
+      - 5. Writing a CLAUDE.md: pages/05-claude-md.md
   - Doing the work:
-      - 5. The loop: pages/05-the-loop.md
-      - 6. Verification: pages/06-verification.md
-      - 7. Reproducibility: pages/07-reproducibility.md
-      - 8. Notebooks and figures: pages/08-notebooks-and-figures.md
+      - 6. Running the loop: pages/06-the-loop.md
+      - 7. Verification: pages/07-verification.md
+      - 8. Reproducibility: pages/08-reproducibility.md
+      - 9. Notebooks and figures: pages/09-notebooks-and-figures.md
   - Lab specifics:
-      - 9. Cluster work: pages/09-hpc.md
-      - 10. The genomedk skill: pages/10-genomedk-skill.md
-      - 11. Human-subject data: pages/11-data-and-ethics.md
-      - 12. Tips and tricks: pages/12-tips-and-tricks.md
+      - 10. Cluster work: pages/10-hpc.md
+      - 11. The genomedk skill: pages/11-genomedk-skill.md
+      - 12. Human-subject data: pages/12-data-and-ethics.md
+      - 13. Tips and tricks: pages/13-tips-and-tricks.md
   - Reference:
-      - 13. Resources: pages/13-resources.md
-      - 14. Contributing: pages/14-contributing.md
+      - 14. Resources: pages/14-resources.md
+      - 15. Contributing: pages/15-contributing.md
   - Templates:
       - Project tree: starters/project-tree.md
       - CLAUDE.md: starters/CLAUDE.md

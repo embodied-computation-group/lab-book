@@ -1,6 +1,6 @@
-# 4. Writing a CLAUDE.md
+# 5. Writing a CLAUDE.md
 
-[← Project layout](03-project-layout.md) · [Contents](../index.md) · [Next: The loop →](05-the-loop.md)
+[← Project layout](04-project-layout.md) · [Contents](../index.md) · [Next: The loop →](06-the-loop.md)
 
 ---
 
@@ -15,7 +15,7 @@ edit. What follows is why each part is there.
 **Environment facts it cannot guess.** The interpreter path, the package manager, how to
 run the tests, how to run the pipeline. This alone saves the most time.
 
-**Your directory contract.** Page 3, stated as rules. Especially the `data/generated/`
+**Your directory contract.** Page 4, stated as rules. Especially the `data/generated/`
 quarantine and the read-only raw data.
 
 **Domain facts about your data.** This is the highest-value section and the one people
@@ -40,7 +40,7 @@ binned with the lab's standard function, not `pd.qcut`."
 ## What does not belong
 
 - Anything secret. This file is committed and readable by anyone with repo access.
-- Participant identifiers or clinical detail. See page 10.
+- Participant identifiers or clinical detail. See page 11.
 - Long prose. It is read every session and it consumes context. Bullet points, imperatives.
 - Things that are true of all your projects — those go in your personal
   `~/.claude/CLAUDE.md` instead, which applies everywhere.
@@ -65,4 +65,4 @@ need; the other half is worth copying into the next project.
 
 ---
 
-[← Project layout](03-project-layout.md) · [Contents](../index.md) · [Next: The loop →](05-the-loop.md)
+[← Project layout](04-project-layout.md) · [Contents](../index.md) · [Next: The loop →](06-the-loop.md)

@@ -1,6 +1,6 @@
-# 8. Notebooks and figures
+# 9. Notebooks and figures
 
-[← Reproducibility](07-reproducibility.md) · [Contents](../index.md) · [Next: Cluster work →](09-hpc.md)
+[← Reproducibility](08-reproducibility.md) · [Contents](../index.md) · [Next: Cluster work →](10-hpc.md)
 
 ---
 
@@ -15,7 +15,7 @@ Jupyter notebooks are a bad fit for agentic work, for three concrete reasons:
    code. The agent edits cell 4, everything still "works", and the output is now
    meaningless. Nothing about the file records this.
 3. **Diffs are unreadable.** You cannot review what the agent changed, which breaks the
-   one control you have (page 3).
+   one control you have (page 4).
 
 Use a text-based format instead:
 
@@ -35,7 +35,7 @@ never ask the agent to read a notebook with figures embedded.
 
 A notebook is a place to look at data. It is not where an analysis lives. Anything a
 figure in a paper depends on should be a function in `src/`, called by a script, invoked by
-a Snakemake rule (page 7). Notebooks import from `src/`; they do not define the analysis.
+a Snakemake rule (page 8). Notebooks import from `src/`; they do not define the analysis.
 
 The test: if deleting all your notebooks would break your ability to reproduce the paper,
 your pipeline is in the wrong place.
@@ -72,4 +72,4 @@ if an agent starts reinventing one, stop it and point it at the package.
 
 ---
 
-[← Reproducibility](07-reproducibility.md) · [Contents](../index.md) · [Next: Cluster work →](09-hpc.md)
+[← Reproducibility](08-reproducibility.md) · [Contents](../index.md) · [Next: Cluster work →](10-hpc.md)

@@ -1,6 +1,6 @@
-# 7. Reproducibility
+# 8. Reproducibility
 
-[← Verification](06-verification.md) · [Contents](../index.md) · [Next: Notebooks and figures →](08-notebooks-and-figures.md)
+[← Verification](07-verification.md) · [Contents](../index.md) · [Next: Notebooks and figures →](09-notebooks-and-figures.md)
 
 ---
 
@@ -90,7 +90,7 @@ Do not create data files to make a script run. If input is missing, stop and say
 
 The last one prevents the worst failure mode there is: the agent inventing plausible data
 to get past an error, and that data ending up in a result. If it must create test data, it
-goes in `data/generated/` (page 3) and it says so.
+goes in `data/generated/` (page 4) and it says so.
 
 ## The replication package
 
@@ -103,7 +103,7 @@ means:
 - [ ] data either included, or a script that fetches it, or a clear access statement
 - [ ] seeds set and recorded
 - [ ] tests that pass on a clean checkout
-- [ ] a note on what was AI-assisted (increasingly expected; see page 12)
+- [ ] a note on what was AI-assisted (increasingly expected; see page 13)
 
 Before submitting, run the reproducibility audit skill from
 [Crawfurd's skill set](https://lcrawfurd.github.io/claude-skills/) against your own repo.
@@ -111,4 +111,4 @@ Being your own Referee 2 is cheaper than the real one.
 
 ---
 
-[← Verification](06-verification.md) · [Contents](../index.md) · [Next: Notebooks and figures →](08-notebooks-and-figures.md)
+[← Verification](07-verification.md) · [Contents](../index.md) · [Next: Notebooks and figures →](09-notebooks-and-figures.md)

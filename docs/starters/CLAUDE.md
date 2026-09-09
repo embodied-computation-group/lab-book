@@ -3,7 +3,7 @@
 Copy this into a project root as `CLAUDE.md`, delete what does not apply, and fill in the
 data facts. The data facts section is the one that matters most and the one people skip.
 
-See [page 4](../pages/04-claude-md.md) for why each section is here.
+See [page 5](../pages/05-claude-md.md) for why each section is here.
 
 ---
 
